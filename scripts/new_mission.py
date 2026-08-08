@@ -5,6 +5,7 @@ lui, dans `<projet>/seo/`. La forge ne fournit que la methode et le referentiel 
 elle n'heberge aucune donnee client, aucun livrable.
 
 Produit :
+  <projet>/seo/METHODE.md         la methode, copiee depuis la forge
   <projet>/seo/README.md          mode d'emploi de l'espace
   <projet>/seo/cadrage.md         entrees de la mission
   <projet>/seo/etat.json          avancement, permet la reprise
@@ -124,6 +125,18 @@ def creer(projet: Path, client: str, domaine: str, modele: str | None = None) ->
     aujourdhui = dt.date.today().isoformat()
 
     dossier(base, c)
+
+    # La methode est COPIEE dans l'etude, pas seulement referencee : l'audit
+    # s'enclenche en ouvrant ce fichier, et l'etude reste lisible meme detachee de
+    # la forge. L'empreinte de grille dans .forge-seo.json dit sur quelle version.
+    methode = (RACINE / "referentiel" / "methode.md").read_text(encoding="utf-8")
+    ecrire(
+        base / "METHODE.md",
+        f"<!-- Copie de referentiel/methode.md — forge {RACINE} — grille "
+        f"{version_grille()} — {aujourdhui}. Ne pas editer ici : la source est dans "
+        f"la forge. -->\n\n{methode}",
+        c, registre, False, base,
+    )
     ecrire(base / "README.md", readme_mission(client), c, registre, False, base)
     ecrire(base / "cadrage.md", cadrage(), c, registre, False, base)
     ecrire(base / "etat.json", etat(client, domaine, aujourdhui, modele), c, registre, False, base)
@@ -190,7 +203,8 @@ def creer(projet: Path, client: str, domaine: str, modele: str | None = None) ->
     print("Etapes suivantes, DANS LE PROJET AUDITE :")
     print(f"  1. remplir  {base / 'cadrage.md'} (champs OBLIGATOIRE)")
     print(f"  2. deposer les exports dans {base / 'donnees'}")
-    print("  3. lancer le skill seo-audit-strategie depuis ce projet")
+    print(f"  3. ouvrir {base / 'METHODE.md'} et derouler le runbook")
+    print(f"  4. python <forge>/scripts/rapport_html.py --projet . --verifier")
     print("")
     print(f"Verification : python scripts/validate.py --mission \"{projet}\"")
     return 0

@@ -447,7 +447,7 @@ def bloc_actions(d: dict) -> str:
             "Aucune action produite",
             "L'étape 5 du pipeline n'a pas été menée : aucun fichier actions-*.csv "
             "dans seo/livrables/.",
-            "produire les actions avec le skill seo-audit-strategie, puis régénérer",
+            "produire les actions en suivant seo/METHODE.md, puis régénérer",
         )
     entetes = [
         "ID", "Action", "Volet", "Gain", "Effort", "Confiance", "Score",

@@ -2,8 +2,8 @@
 
 SOURCE DE VERITE : referentiel/grille-noeuds.md
 
-Elle vit dans le projet, pas dans un skill : forge-seo EST le referentiel. Le skill
-seo-audit-strategie ne fait que declencher la methode et pointer ici.
+Elle vit dans le projet : forge-seo EST le referentiel. Il n'y a pas de skill --
+l'audit s'enclenche par l'invocation du projet, pas par un declenchement automatique.
 
 Le fichier input/Schema SEO.MD n'est JAMAIS parse par aucun script de ce projet.
 Motif verifie : son bloc `Objectif` (lignes 219-229) a une indentation cassee -- ses

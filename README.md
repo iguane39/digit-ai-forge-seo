@@ -13,17 +13,9 @@ sur une grille stable, comparable et versionnée.
 
 C'est l'usage principal : tu travailles dans `c:\dev\mon-client`, tu veux une étude SEO.
 
-### Une fois, sur la machine
-
-```bash
-python c:/dev/digit-ai-forge-seo/scripts/installer_skill.py
-```
-
-Copie le déclencheur dans `~/.claude/skills/`. Sans cette étape, le skill ne s'active
-**que** depuis la forge — donc jamais quand tu en as besoin. À rejouer quand le skill
-évolue ; `--verifier` dit si la copie installée a dérivé.
-
-### Pour chaque étude
+**Rien ne se déclenche tout seul.** Il n'y a pas de skill, pas de mot-clé qui active
+l'audit sur une phrase. Un audit engage des heures de travail et un livrable facturé :
+il commence par une commande explicite. C'est l'invocation du projet qui l'enclenche.
 
 ```bash
 cd c:/dev/mon-client
@@ -34,8 +26,9 @@ python c:/dev/digit-ai-forge-seo/scripts/new_mission.py \
 
 # 2. remplir seo/cadrage.md, déposer les exports dans seo/donnees/{gsc,ga,crm,logs}/
 
-# 3. mener l'audit — le skill se déclenche sur « fais l'audit SEO de ce site »
-#    et applique la méthode de referentiel/
+# 3. ouvrir seo/METHODE.md — garde-fous, runbook en 5 étapes, contrat de sortie.
+#    new_mission.py y a déposé une copie de la méthode, estampillée de la version
+#    de grille. C'est ce fichier qu'on déroule.
 
 # 4. produire le rapport client
 python c:/dev/digit-ai-forge-seo/scripts/rapport_html.py --projet . --verifier
@@ -55,6 +48,7 @@ forge par leur propre chemin. Aucune dépendance : Python 3 et sa bibliothèque 
 
 ```
 mon-client/seo/
+├── METHODE.md           la méthode — à ouvrir pour commencer
 ├── README.md            mode d'emploi de l'espace
 ├── cadrage.md           entrées de la mission
 ├── etat.json            avancement — permet la reprise
@@ -82,6 +76,7 @@ composer.
 ```
 forge-seo/
 ├── referentiel/         LA MÉTHODE — source de vérité
+│   ├── methode.md               garde-fous, runbook, contrat de sortie
 │   ├── grille-noeuds.md         17 branches, 87 nœuds, portée par modèle
 │   ├── scoring.md               échelles ancrées, formule, trait de coupe
 │   ├── sources-donnees.md       matrice source → nœuds, dégradations
@@ -91,28 +86,30 @@ forge-seo/
 │   └── snapshot.schema.json     contrat de l'état persistant
 ├── seo/                 arborescence canonique générée depuis referentiel/ — lecture seule
 ├── scripts/             grille · gabarits · scaffold · new_mission · validate
-│                        · gabarit_html · rapport_html · installer_skill
+│                        · gabarit_html · rapport_html
 ├── assets/vendor/       composant de filtres, copie verbatim tracée
 ├── output/              décisions et veille (livrables de la forge)
 ├── prompts/             archives datées du chantier
-└── .claude/skills/seo-audit-strategie/SKILL.md    le déclencheur
+└── input/               le schéma d'origine, archivé
 ```
 
-**Le projet ne dépend pas du skill.** Tous les scripts tournent sans lui — vérifié par
-débranchement. Le skill apporte ce qu'aucun fichier de projet ne peut apporter : **être
-déclenché** quand quelqu'un demande un audit SEO. Il porte aussi les 7 garde-fous, qui
-doivent être en contexte **avant** la première mesure, pas au moment où on va chercher
-une référence.
+**Aucun déclencheur, aucun skill.** Le projet est entièrement piloté par ses scripts et
+son référentiel. La méthode se lit — elle ne s'active pas.
 
-Si la forge est introuvable, le skill dit de s'arrêter plutôt que d'improviser. Une
-méthode reconstituée de mémoire n'est pas la méthode, et rien ne le signalerait.
+`methode.md` porte les 7 garde-fous, et `new_mission.py` en dépose une copie dans chaque
+étude sous `seo/METHODE.md`, estampillée de la version de grille. Deux raisons : ils
+doivent être lus **avant** la première mesure, pas au moment où l'on va chercher une
+référence ; et l'étude reste lisible même détachée de la forge.
+
+Si la forge est introuvable au moment de charger les références, la méthode dit de
+s'arrêter plutôt que d'improviser. Une grille reconstituée de mémoire n'est pas la
+grille, et rien ne le signalerait.
 
 ## Maintenir la forge
 
 ```bash
 python scripts/scaffold.py                      # régénère seo/ depuis referentiel/
 python scripts/validate.py                      # 9 contrôles, non-zéro si échec
-python scripts/installer_skill.py --verifier    # le déclencheur est-il à jour ?
 python scripts/new_mission.py --liste           # registre local des études créées
 ```
 
@@ -230,5 +227,5 @@ cérémoniel.
 5. compteurs d'avancement cohérents
 
 Le rapport HTML se recette par `rapport_html.py --verifier` (7 contrôles internes), puis
-par les oracles de `digit-ai-page-html` et `quality-oracles` : `check_html.py`,
+par les oracles des skills `digit-ai-page-html` et `quality-oracles` : `check_html.py`,
 `render_page.py` (V1-V7, trois breakpoints) et `oracle-filtres-tableau.mjs`.

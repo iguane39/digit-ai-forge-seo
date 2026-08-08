@@ -394,7 +394,8 @@ ici**.
 | `livrables/` | documents composes, remis au client | 4. Projection + 5. Actions |
 | `cadrage.md` | entrees de la mission | prealable |
 | `etat.json` | avancement, permet la reprise | transversal |
-| `.forge-seo.json` | provenance : version de la grille, date | tracabilite |
+| `METHODE.md` | la methode — a ouvrir pour commencer | toutes |
+| `.forge-seo.json` | provenance : chemin de la forge, version de grille, date | tracabilite |
 
 `donnees/` est indexe par **source**, `analyse/` par **concept SEO**. Un export GSC
 alimente 16 noeuds repartis dans 7 branches : les deux indexations ne peuvent pas
@@ -405,10 +406,12 @@ deux rend le rapport impossible a composer.
 
 ## Comment on travaille
 
-La methode vit dans le projet **forge-seo**, sous `referentiel/` : grille des
-87 noeuds, bareme de scoring, matrice des sources, methode du volet strategie,
-schema de snapshot. Le skill `seo-audit-strategie` declenche cette methode et porte
-les garde-fous ; il ne la duplique pas.
+**Ouvrir `METHODE.md`** : garde-fous, runbook en 5 etapes, contrat de sortie. Il en
+existe une copie ici, prise a la creation de l'etude ; la source vit dans le projet
+forge-seo sous `referentiel/`, avec la grille des 87 noeuds, le bareme de scoring, la
+matrice des sources et la methode du volet strategie.
+
+Rien ne se declenche tout seul : l'audit commence quand on ouvre ce fichier.
 
 Un noeud marque `hors-perimetre` avec un motif est un resultat aussi legitime qu'un
 noeud `fait`. Ne jamais remplir un casier pour qu'il ait l'air rempli.

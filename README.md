@@ -91,6 +91,7 @@ forge-seo/
 ├── seo/                 arborescence canonique générée depuis referentiel/ — lecture seule
 ├── scripts/             grille · gabarits · scaffold · new_mission · validate
 │                        · schema · crawler · livrables · gabarit_html · rapport_html
+│                        · oracle_interaction
 ├── assets/vendor/       composant de filtres, copie verbatim tracée
 ├── output/              décisions et veille (livrables de la forge)
 ├── prompts/             archives datées du chantier
@@ -232,6 +233,21 @@ cérémoniel.
 5. compteurs d'avancement **conformes aux fiches** — pas seulement à leur somme
 6. snapshot conforme à `snapshot.schema.json`
 
-Le rapport HTML se recette par `rapport_html.py --verifier` (7 contrôles internes), puis
-par les oracles des skills `digit-ai-page-html` et `quality-oracles` : `check_html.py`,
-`render_page.py` (V1-V7, trois breakpoints) et `oracle-filtres-tableau.mjs`.
+Le rapport HTML se recette en trois couches :
+
+```bash
+python scripts/rapport_html.py --projet . --verifier    # 8 contrôles sur le fichier
+python scripts/oracle_interaction.py <page.html>        # 9 contrôles d'EXÉCUTION
+```
+
+puis par les oracles des skills `digit-ai-page-html` et `quality-oracles` :
+`check_html.py`, `render_page.py` (V1-V7, trois breakpoints), `oracle-filtres-tableau.mjs`
+et `oracle-a11y.py`.
+
+`oracle_interaction.py` existe parce que les autres sont **statiques ou visuels** : ils
+lisent le marquage ou mesurent des boîtes, aucun ne dit si le script tourne. Le rapport
+a déjà porté un défaut exactement de cette nature — un `</script>` en commentaire dans
+un composant inline terminait l'élément, tout le JS suivant devenait du HTML mort, et
+les trois oracles étaient au vert. Celui-ci charge la page dans un navigateur et vérifie
+ce qui n'existe que si le code s'est exécuté. Vérifié par mutation : sans l'échappement,
+il rend 2/9 avec erreurs JS.

@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "client": null,
+  "domaine": null,
+  "date_creation": null,
+  "etape_courante": "1-collecte",
+  "etapes": {
+    "1-collecte": {
+      "statut": "a-faire",
+      "note": null
+    },
+    "2-constat": {
+      "statut": "a-faire",
+      "note": null
+    },
+    "3-interpretation": {
+      "statut": "a-faire",
+      "note": null
+    },
+    "4-projection": {
+      "statut": "a-faire",
+      "note": null
+    },
+    "5-actions": {
+      "statut": "a-faire",
+      "note": null
+    }
+  },
+  "noeuds": {
+    "total": 82,
+    "a_faire": 82,
+    "en_cours": 0,
+    "fait": 0,
+    "hors_perimetre": 0
+  },
+  "snapshot_precedent": null
+}

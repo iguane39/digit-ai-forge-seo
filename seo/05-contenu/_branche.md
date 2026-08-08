@@ -1,0 +1,22 @@
+---
+rang: 5
+branche: Contenu
+volet_dominant: TRANSVERSAL
+nb_noeuds: 6
+---
+
+# 05. Contenu
+
+6 noeuds. Volet dominant : **TRANSVERSAL**.
+
+| # | Noeud | Volet | Statut | Dossier |
+|---|---|---|---|---|
+| 21 | Pages Piliers | TRANSVERSAL | `SD` | `01-pages-piliers/` |
+| 22 | Guides | TRANSVERSAL | `SD` | `02-guides/` |
+| 23 | Comparatifs | TRANSVERSAL | `SD` | `03-comparatifs/` |
+| 24 | FAQ | TRANSVERSAL | `SD` | `04-faq/` |
+| 25 | Contenu Programmatique | TRANSVERSAL | `SD` | `05-contenu-programmatique/` |
+| 26 | Contenu Pensé Pour Les LLM | TRANSVERSAL | `SD` | `06-contenu-pense-pour-les-llm/` |
+
+> Referentiel canonique, en lecture seule. Le travail se fait dans
+> `missions/<client>/analyse/`.

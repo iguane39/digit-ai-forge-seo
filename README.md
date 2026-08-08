@@ -26,11 +26,16 @@ python c:/dev/digit-ai-forge-seo/scripts/new_mission.py \
 
 # 2. remplir seo/cadrage.md, déposer les exports dans seo/donnees/{gsc,ga,crm,logs}/
 
-# 3. ouvrir seo/METHODE.md — garde-fous, runbook en 5 étapes, contrat de sortie.
-#    new_mission.py y a déposé une copie de la méthode, estampillée de la version
-#    de grille. C'est ce fichier qu'on déroule.
+# 3. collecter — crawl du site, étape 1 du pipeline
+python c:/dev/digit-ai-forge-seo/scripts/crawler.py --projet . --url https://acme.fr
 
-# 4. produire le rapport client
+# 4. ouvrir seo/METHODE.md — garde-fous, runbook, contrat de sortie. Constater et
+#    interpréter dans les fiches de seo/analyse/ : c'est la partie humaine.
+
+# 5. assembler ce qui se déduit des fiches — snapshot, dette, compteurs
+python c:/dev/digit-ai-forge-seo/scripts/livrables.py --projet .
+
+# 6. produire le rapport client
 python c:/dev/digit-ai-forge-seo/scripts/rapport_html.py --projet . --verifier
 
 # à tout moment : contrôler l'étude
@@ -82,11 +87,10 @@ forge-seo/
 │   ├── sources-donnees.md       matrice source → nœuds, dégradations
 │   ├── strategie-future.md      méthode du volet 12-24 mois
 │   ├── cadrage.template.md      formulaire d'entrée détaillé
-│   ├── gabarit-rapport.md       structure du rapport Markdown
-│   └── snapshot.schema.json     contrat de l'état persistant
+│   └── snapshot.schema.json     contrat de l'état persistant, appliqué
 ├── seo/                 arborescence canonique générée depuis referentiel/ — lecture seule
 ├── scripts/             grille · gabarits · scaffold · new_mission · validate
-│                        · gabarit_html · rapport_html
+│                        · schema · crawler · livrables · gabarit_html · rapport_html
 ├── assets/vendor/       composant de filtres, copie verbatim tracée
 ├── output/              décisions et veille (livrables de la forge)
 ├── prompts/             archives datées du chantier
@@ -109,7 +113,7 @@ grille, et rien ne le signalerait.
 
 ```bash
 python scripts/scaffold.py                      # régénère seo/ depuis referentiel/
-python scripts/validate.py                      # 9 contrôles, non-zéro si échec
+python scripts/validate.py                      # 10 contrôles, non-zéro si échec
 python scripts/new_mission.py --liste           # registre local des études créées
 ```
 
@@ -216,7 +220,8 @@ cérémoniel.
 6. aucune dérive entre la grille et le manifeste
 7. les 87 fiches ont un front-matter valide et cohérent
 8. **la forge n'héberge aucune donnée ni livrable client**
-9. aucun dossier sans fichier ni `.gitkeep`
+9. le schéma de snapshot suit le compte de la grille
+10. aucun dossier sans fichier ni `.gitkeep`
 
 `validate.py --mission <projet>` — étude d'un projet :
 
@@ -224,7 +229,8 @@ cérémoniel.
 2. structure complète (cadrage, état, données, livrables, provenance)
 3. les 87 fiches ont un front-matter valide et cohérent
 4. version de grille alignée sur la forge
-5. compteurs d'avancement cohérents
+5. compteurs d'avancement **conformes aux fiches** — pas seulement à leur somme
+6. snapshot conforme à `snapshot.schema.json`
 
 Le rapport HTML se recette par `rapport_html.py --verifier` (7 contrôles internes), puis
 par les oracles des skills `digit-ai-page-html` et `quality-oracles` : `check_html.py`,

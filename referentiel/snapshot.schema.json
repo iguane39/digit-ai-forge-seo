@@ -268,7 +268,7 @@
             "items": {
               "type": "integer",
               "minimum": 1,
-              "maximum": 82
+              "maximum": 87
             },
             "description": "noeuds de la grille que cette page documente"
           },
@@ -286,9 +286,9 @@
     },
     "noeuds": {
       "type": "array",
-      "description": "Les 82 noeuds de la grille. Aucun omis : le tableau contient exactement 82 entrees.",
-      "minItems": 82,
-      "maxItems": 82,
+      "description": "Les 87 noeuds de la grille. Aucun omis : le tableau en contient exactement 87. Le compte est verifie contre NB_NOEUDS par validate.py — un schema qui reste sur l'ancien compte est une derive silencieuse.",
+      "minItems": 87,
+      "maxItems": 87,
       "items": {
         "type": "object",
         "required": [
@@ -303,7 +303,7 @@
           "id": {
             "type": "integer",
             "minimum": 1,
-            "maximum": 82
+            "maximum": 87
           },
           "branche": {
             "type": "string"
@@ -512,7 +512,7 @@
             "items": {
               "type": "integer",
               "minimum": 1,
-              "maximum": 82
+              "maximum": 87
             }
           },
           "gain": {
@@ -671,7 +671,7 @@
           "noeud_id": {
             "type": "integer",
             "minimum": 1,
-            "maximum": 82
+            "maximum": 87
           },
           "motif": {
             "type": "string"

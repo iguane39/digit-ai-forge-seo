@@ -21,6 +21,8 @@ import sys
 from pathlib import Path
 
 from gabarits import SOUS_DOSSIERS_DONNEES, front_matter
+from livrables import compteurs, lire_fiches
+from schema import valider
 from grille import GRILLE, NB_BRANCHES, NB_NOEUDS, RACINE, lire
 
 SEO = RACINE / "seo"
@@ -207,13 +209,22 @@ def valider_referentiel() -> int:
         f"intrus : {intrus}" if intrus else "referentiel vierge, etudes chez les projets",
     )
 
+    # 9 bis -- le schema de snapshot fige un compte de noeuds : il doit suivre.
+    sch = json.loads((RACINE / "referentiel" / "snapshot.schema.json").read_text(encoding="utf-8"))
+    bornes = sch["properties"]["noeuds"]
+    r.controle(
+        "9. le schema de snapshot suit le compte de la grille",
+        bornes.get("minItems") == bornes.get("maxItems") == NB_NOEUDS,
+        f"schema {bornes.get('minItems')}-{bornes.get('maxItems')}, grille {NB_NOEUDS}",
+    )
+
     vides = [
         str(d.relative_to(RACINE))
         for d in SEO.rglob("*")
         if d.is_dir() and not any(d.iterdir())
     ]
     r.controle(
-        "9. aucun dossier sans fichier ni .gitkeep",
+        "10. aucun dossier sans fichier ni .gitkeep",
         not vides,
         f"{len(vides)} dossier(s) vide(s)" if vides else "arborescence survivra au clone",
     )
@@ -286,16 +297,38 @@ def valider_mission(projet: Path) -> int:
     etat_f = base / "etat.json"
     if etat_f.exists():
         e = json.loads(etat_f.read_text(encoding="utf-8"))
-        n = e.get("noeuds", {})
-        total = sum(n.get(k, 0) for k in ("a_faire", "en_cours", "fait", "hors_perimetre"))
+        # Comparer les compteurs de etat.json a ce que les fiches disent VRAIMENT.
+        # L'ancienne version verifiait que le total valait 87 : comme rien ne mettait
+        # jamais ces compteurs a jour, il valait toujours 87 et le controle ne pouvait
+        # pas echouer. Un faux vert est pire que pas de controle.
+        reel = compteurs(lire_fiches(base))
+        declare = e.get("noeuds", {})
+        ok = all(declare.get(k) == v for k, v in reel.items())
         r.controle(
-            "5. compteurs d'avancement coherents",
-            total == NB_NOEUDS,
-            f"{n.get('fait', 0)} fait / {n.get('hors_perimetre', 0)} hors perimetre "
-            f"/ {total} comptes",
+            "5. compteurs d'avancement conformes aux fiches",
+            ok,
+            f"{reel['fait']} fait / {reel['en_cours']} en cours / {reel['a_faire']} a faire "
+            f"/ {reel['hors_perimetre']} hors perimetre"
+            + ("" if ok else f" — etat.json declare {declare}. "
+                             "Lancer : python scripts/livrables.py --projet <chemin>"),
         )
     else:
         r.controle("5. etat.json present", False, "absent")
+
+    # 6 -- le snapshot respecte son contrat
+    snaps = sorted((base / "livrables").glob("snapshot-*.json")) if (base / "livrables").is_dir() else []
+    if not snaps:
+        r.controle("6. snapshot conforme au schema", True, "aucun snapshot — rien a valider")
+    else:
+        sch = json.loads((RACINE / "referentiel" / "snapshot.schema.json").read_text(encoding="utf-8"))
+        ecarts = valider(json.loads(snaps[-1].read_text(encoding="utf-8")), sch)
+        r.controle(
+            "6. snapshot conforme au schema",
+            not ecarts,
+            f"{snaps[-1].name} — {len(ecarts)} ecart(s)" if ecarts else snaps[-1].name,
+        )
+        for msg in ecarts[:5]:
+            print(f"          {msg}")
 
     return r.bilan()
 

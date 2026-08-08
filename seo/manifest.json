@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "source": ".claude/skills/seo-audit-strategie/references/grille-noeuds.md",
+  "source": "referentiel/grille-noeuds.md",
   "avertissement": "Genere par scripts/scaffold.py depuis la grille. Ne pas editer a la main : validate.py detecte toute derive. Le fichier input/Schema SEO.MD n'est parse par aucun script (indentation cassee du bloc Objectif -- voir scripts/grille.py).",
   "comptes": {
     "branches": 17,

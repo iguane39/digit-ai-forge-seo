@@ -1,6 +1,9 @@
 """Lecture de la source de verite de forge-seo.
 
-SOURCE DE VERITE : .claude/skills/seo-audit-strategie/references/grille-noeuds.md
+SOURCE DE VERITE : referentiel/grille-noeuds.md
+
+Elle vit dans le projet, pas dans un skill : forge-seo EST le referentiel. Le skill
+seo-audit-strategie ne fait que declencher la methode et pointer ici.
 
 Le fichier input/Schema SEO.MD n'est JAMAIS parse par aucun script de ce projet.
 Motif verifie : son bloc `Objectif` (lignes 219-229) a une indentation cassee -- ses
@@ -32,21 +35,14 @@ from pathlib import Path
 
 RACINE = Path(__file__).resolve().parent.parent
 
-GRILLE = (
-    RACINE
-    / ".claude"
-    / "skills"
-    / "seo-audit-strategie"
-    / "references"
-    / "grille-noeuds.md"
-)
+GRILLE = RACINE / "referentiel" / "grille-noeuds.md"
 
 NB_BRANCHES = 17
 NB_NOEUDS = 87
 
 STATUTS = {"SD", "EX", "PY", "NM", "RV", "CA"}
 
-# Enum ASCII, aligne sur assets/snapshot.schema.json du skill.
+# Enum ASCII, aligne sur referentiel/snapshot.schema.json.
 # Deux conventions divergentes pour un meme champ seraient exactement la derive
 # que ce projet cherche a rendre impossible.
 VOLETS = {

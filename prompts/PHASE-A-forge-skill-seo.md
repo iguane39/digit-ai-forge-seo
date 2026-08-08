@@ -1,5 +1,10 @@
 # PHASE A — Forger le skill `seo-audit-strategie`
 
+> **Archive.** Ce prompt décrit l'état du projet au moment où il a été joué.
+> Depuis, le référentiel a été déplacé du skill vers `referentiel/` du projet
+> (le skill ne fait plus que déclencher), et la grille est passée à 87 nœuds.
+> Les chemins cités ci-dessous ne sont plus valides.
+
 > **Quoi** : prompt de construction de l'actif réutilisable. À exécuter **une seule fois**, depuis la forge (`c:\dev\digit-ai-forge-seo`).
 > **Sortie** : un skill Claude Code installable, utilisable ensuite depuis **n'importe quel projet** via le prompt `PHASE-B-analyse-strategie-seo.md`.
 > **Ne pas** exécuter d'audit de site ici. Aucune donnée d'un site réel ne doit entrer dans les fichiers produits par cette phase.

@@ -1,5 +1,5 @@
 {
-  "manifest.json": "c9d9959b80828dd0",
+  "manifest.json": "3117542ef5378920",
   "01-idee/_branche.md": "067ff1bc4e68810f",
   "01-idee/01-niche/_fiche.md": "cb7d490701569984",
   "01-idee/02-intention-de-recherche/_fiche.md": "025abb5f88087b67",
@@ -33,7 +33,7 @@
   "05-contenu/06-contenu-pense-pour-les-llm/_fiche.md": "7a0a8265c272d08b",
   "06-technique/_branche.md": "9982fd0b594c391f",
   "06-technique/01-crawl/_fiche.md": "c23e3b34d25b67f0",
-  "06-technique/02-indexation/_fiche.md": "e40c420d2a4a6776",
+  "06-technique/02-indexation/_fiche.md": "c0bf7572bf587d6e",
   "06-technique/03-logs-serveur/_fiche.md": "ad347d95558dca60",
   "06-technique/04-canonical/_fiche.md": "da114da0319700b1",
   "06-technique/05-performance/_fiche.md": "aa0da8b9922bb96b",
@@ -102,6 +102,6 @@
   "17-objectif/01-trafic-qualifie/_fiche.md": "459c2a24f0535e10",
   "17-objectif/02-leads-entrants/_fiche.md": "f9b62842d507ccb9",
   "17-objectif/03-ventes/_fiche.md": "bb63ea1b56b4a0ac",
-  "17-objectif/04-autorite/_fiche.md": "44ebc17ef58a91ed",
+  "17-objectif/04-autorite/_fiche.md": "ef550379bb8c0c73",
   "17-objectif/05-machine-seo/_fiche.md": "2407eebc7a591dbb"
 }

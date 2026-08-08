@@ -10,14 +10,37 @@ mission, sur une grille de 87 nœuds stable, comparable et versionnée.
 
 | Élément | Rôle | Emplacement |
 |---|---|---|
-| `seo/` | référentiel canonique — 104 dossiers, `manifest.json`, fiches vierges | **dans la forge**, lecture seule |
-| `scripts/` | générateurs et contrôles | dans la forge |
-| `.claude/skills/seo-audit-strategie/` | moteur d'exécution : méthode, garde-fous, barème, gabarit de rapport | dans la forge |
+| `referentiel/` | **la méthode** — grille des 87 nœuds, barème, sources, stratégie, schéma, gabarits | dans la forge |
+| `seo/` | arborescence canonique — 104 dossiers, `manifest.json`, fiches vierges, générée depuis `referentiel/` | **dans la forge**, lecture seule |
+| `scripts/` | générateurs, contrôles, rapport HTML | dans la forge |
+| `.claude/skills/seo-audit-strategie/` | **déclencheur** — un seul fichier : garde-fous, runbook, pointeurs vers `referentiel/` | dans la forge |
 | `<projet>/seo/` | **l'étude** — cadrage, données, analyse, livrables | **dans le projet audité** |
+
+Le projet **ne dépend pas du skill** : `scaffold.py`, `new_mission.py`, `validate.py` et
+`rapport_html.py` tournent sans lui. Le skill apporte ce qu'aucun fichier de projet ne
+peut apporter — **être déclenché** quand quelqu'un demande un audit SEO — et porte les
+garde-fous, qui doivent être en contexte avant la première mesure.
 
 **La forge n'héberge aucune donnée ni livrable client.** C'est un invariant, pas une
 convention : `validate.py` échoue si une étude s'y installe, et `new_mission.py`
 refuse de viser la forge ou un dossier qui la contient.
+
+## Le dossier `seo/` d'un projet audité
+
+```
+forge-seo/
+├── referentiel/         la méthode — source de vérité
+│   ├── grille-noeuds.md         17 branches, 87 nœuds, portée par modèle
+│   ├── scoring.md               échelles ancrées, formule, trait de coupe
+│   ├── sources-donnees.md       matrice source → nœuds, dégradations
+│   ├── strategie-future.md      méthode du volet 12-24 mois
+│   ├── cadrage.template.md      formulaire d'entrée
+│   ├── gabarit-rapport.md       structure du rapport Markdown
+│   └── snapshot.schema.json     contrat de l'état persistant
+├── seo/                 arborescence canonique générée
+├── scripts/             grille · gabarits · scaffold · new_mission · validate · rapport_html
+└── .claude/skills/seo-audit-strategie/SKILL.md   déclencheur
+```
 
 ## Le dossier `seo/` d'un projet audité
 
@@ -70,7 +93,7 @@ Son bloc `Objectif` (lignes 219-229) a une indentation cassée : ses 5 feuilles 
 lieu de 16 et 82, crée 5 dossiers racine parasites — et, effet de bord plus grave,
 cesse de détecter `Autorité` comme doublon. Le contrôle de cohérence passe alors au
 vert sur une arborescence fausse. Vérifié, puis contourné : la source de vérité est
-`references/grille-noeuds.md` du skill. Voir `scripts/grille.py`.
+`referentiel/grille-noeuds.md`. Voir `scripts/grille.py`.
 
 ## Le pipeline — 5 étapes aux sorties disjointes
 

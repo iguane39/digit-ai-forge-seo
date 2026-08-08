@@ -60,7 +60,7 @@ CHAMPS_MANIFESTE = (
 def construire_manifeste(donnees: dict) -> dict:
     return {
         "schema_version": "1.0.0",
-        "source": ".claude/skills/seo-audit-strategie/references/grille-noeuds.md",
+        "source": "referentiel/grille-noeuds.md",
         "avertissement": (
             "Genere par scripts/scaffold.py depuis la grille. Ne pas editer a la "
             "main : validate.py detecte toute derive. Le fichier input/Schema "

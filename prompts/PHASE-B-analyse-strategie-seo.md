@@ -1,5 +1,10 @@
 # PHASE B — Analyse & stratégie SEO d'un site
 
+> **Archive.** Ce prompt décrit l'état du projet au moment où il a été joué.
+> Depuis, le référentiel a été déplacé du skill vers `referentiel/` du projet
+> (le skill ne fait plus que déclencher), et la grille est passée à 87 nœuds.
+> Les chemins cités ci-dessous ne sont plus valides.
+
 > **Quoi** : prompt de run. À exécuter **depuis le projet du site à analyser**, autant de fois que nécessaire (un run par site, ou un run de suivi par trimestre).
 > **Prérequis** : le skill `seo-audit-strategie` est installé (Phase A). S'il est absent, arrête-toi et signale-le — n'improvise pas la grille.
 > **Portable** : ce fichier ne contient aucun chemin absolu. Copie-le dans le projet cible, ou invoque-le depuis n'importe quel répertoire.

@@ -274,7 +274,7 @@ def cadrage() -> str:
 
 > Rempli AVANT le run. Les champs OBLIGATOIRE bloquent le demarrage.
 > Le formulaire detaille, avec l'impact precis de chaque champ optionnel, est dans
-> le skill : `assets/cadrage.template.md`.
+> le projet forge-seo : `referentiel/cadrage.template.md`.
 
 ## Site
 - **URL** (OBLIGATOIRE) :
@@ -405,8 +405,10 @@ deux rend le rapport impossible a composer.
 
 ## Comment on travaille
 
-Le moteur d'execution est le skill `seo-audit-strategie` : methode, garde-fous,
-bareme de scoring et gabarit de rapport y sont deja.
+La methode vit dans le projet **forge-seo**, sous `referentiel/` : grille des
+87 noeuds, bareme de scoring, matrice des sources, methode du volet strategie,
+schema de snapshot. Le skill `seo-audit-strategie` declenche cette methode et porte
+les garde-fous ; il ne la duplique pas.
 
 Un noeud marque `hors-perimetre` avec un motif est un resultat aussi legitime qu'un
 noeud `fait`. Ne jamais remplir un casier pour qu'il ait l'air rempli.

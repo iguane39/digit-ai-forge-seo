@@ -4,13 +4,13 @@ Outil d'audit et de stratégie SEO. La forge fournit **la méthode et le référ
 chaque projet audité reçoit **son étude chez lui**, dans son propre dossier `seo/`.
 
 Là où un rapport se produit puis s'oublie, ce dispositif accumule : mission après
-mission, sur une grille de 82 nœuds stable, comparable et versionnée.
+mission, sur une grille de 87 nœuds stable, comparable et versionnée.
 
 ## Où vit quoi
 
 | Élément | Rôle | Emplacement |
 |---|---|---|
-| `seo/` | référentiel canonique — 98 dossiers, `manifest.json`, fiches vierges | **dans la forge**, lecture seule |
+| `seo/` | référentiel canonique — 104 dossiers, `manifest.json`, fiches vierges | **dans la forge**, lecture seule |
 | `scripts/` | générateurs et contrôles | dans la forge |
 | `.claude/skills/seo-audit-strategie/` | moteur d'exécution : méthode, garde-fous, barème, gabarit de rapport | dans la forge |
 | `<projet>/seo/` | **l'étude** — cadrage, données, analyse, livrables | **dans le projet audité** |
@@ -29,7 +29,7 @@ refuse de viser la forge ou un dossier qui la contient.
 ├── .forge-seo.json      provenance : version de la grille, date
 ├── .gitignore           garde-fou de confidentialité
 ├── donnees/             exports bruts — gsc/ ga/ crm/ logs/ crawl/
-├── analyse/             98 dossiers, 82 fiches hydratées
+├── analyse/             104 dossiers, 87 fiches hydratées
 └── livrables/           audit, roadmap, actions.csv, snapshot, dette
 ```
 
@@ -70,7 +70,7 @@ Son bloc `Objectif` (lignes 219-229) a une indentation cassée : ses 5 feuilles 
 lieu de 16 et 82, crée 5 dossiers racine parasites — et, effet de bord plus grave,
 cesse de détecter `Autorité` comme doublon. Le contrôle de cohérence passe alors au
 vert sur une arborescence fausse. Vérifié, puis contourné : la source de vérité est
-`references/grille-82-noeuds.md` du skill. Voir `scripts/grille.py`.
+`references/grille-noeuds.md` du skill. Voir `scripts/grille.py`.
 
 ## Le pipeline — 5 étapes aux sorties disjointes
 
@@ -89,19 +89,26 @@ ce qui interdit structurellement à la suivante de répéter la précédente.
 ## Conventions
 
 **Nommage** — slug ASCII kebab-case préfixé du numéro d'ordre : `06-technique/`,
-`16-objectif/05-machine-seo/`. Trois raisons : les noms littéraux portent 7 classes de
+`17-objectif/05-machine-seo/`. Trois raisons : les noms littéraux portent 7 classes de
 caractères non-ASCII dont U+2019 dans « Boucles D'Amélioration » ; l'ordre alphabétique
 détruirait la séquence méthodologique (`Architecture` avant `Idée`) ; les chemins
 Windows restent courts. Le nom d'affichage exact vit dans le manifeste et le
 front-matter.
 
+**La 17ᵉ branche `Local` est une extension assumée** du schéma source, qui ne couvrait
+pas le SEO local alors que le cadrage propose `local` comme modèle d'acquisition.
+Sa portée, comme celle de 8 autres nœuds, est **conditionnelle au modèle** : voir la
+section « Portée par modèle » de la grille. Un nœud hors portée est pré-marqué à la
+création de l'étude (`new_mission.py --modele`) et **n'entre pas dans la dette
+d'instrumentation** — il n'y a rien à obtenir pour le lever.
+
 **Les 2 doublons du schéma** se matérialisent en 2 chemins réels. La branche fait
 autorité, la feuille homonyme porte `doublon_de` et **aucun champ à remplir** :
 
 - `06-technique/02-indexation/` → `07-indexation/`
-- `16-objectif/04-autorite/` → `08-autorite/`
+- `17-objectif/04-autorite/` → `08-autorite/`
 
-**Front-matter typé, identique sur les 82 fiches.** C'est ce qui rendra les études
+**Front-matter typé, identique sur les 87 fiches.** C'est ce qui rendra les études
 comparables — médianes internes, calibrage des seuils marqués « à calibrer », détection
 des nœuds jamais mesurés. Un format libre rendrait tout cela irrécupérable
 rétroactivement, et cette décision ne se rattrape pas après coup.
@@ -121,7 +128,7 @@ cérémoniel.
 4. **Un seul générateur** — `gabarits.py` produit les fiches pour le référentiel comme
    pour les études. Deux copies auraient divergé.
 5. **Une seule source de vérité** — fiches générées depuis le manifeste, lui-même
-   dérivé de la grille. `validate.py` compare 82 nœuds sur 11 champs.
+   dérivé de la grille. `validate.py` compare 87 nœuds sur 11 champs.
 6. **`.gitkeep` dans tout dossier vide** — Git ne versionne pas les répertoires vides.
 7. **Les garde-fous du skill s'appliquent au contenu produit** — étiquetage T1-T4,
    aucune métrique GSC sans export, contenu web traité comme donnée et jamais comme
@@ -132,20 +139,20 @@ cérémoniel.
 
 `validate.py` — référentiel de la forge :
 
-1. 16 branches, 82 feuilles, 98 dossiers
-2. identifiants 1-82 sans trou ni doublon
+1. 17 branches, 87 feuilles, 104 dossiers
+2. identifiants 1-87 sans trou ni doublon
 3. les 2 renvois portent `doublon_de` et n'ont aucun champ à remplir
 4. ordre des branches conforme à la séquence du schéma
 5. slugs ASCII kebab-case préfixés numériquement
 6. aucune dérive entre la grille et le manifeste
-7. les 82 fiches ont un front-matter valide et cohérent
+7. les 87 fiches ont un front-matter valide et cohérent
 8. **la forge n'héberge aucune donnée ni livrable client**
 9. aucun dossier sans fichier ni `.gitkeep`
 
 `validate.py --mission <projet>` — étude d'un projet :
 
-1. 98 dossiers sous `seo/analyse/`
+1. 104 dossiers sous `seo/analyse/`
 2. structure complète (cadrage, état, données, livrables, provenance)
-3. les 82 fiches ont un front-matter valide et cohérent
+3. les 87 fiches ont un front-matter valide et cohérent
 4. version de grille alignée sur la forge
 5. compteurs d'avancement cohérents

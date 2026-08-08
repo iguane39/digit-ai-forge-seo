@@ -6,6 +6,7 @@ volet: ETAT
 statut_instrumentation: RV
 source_requise: "—"
 doublon_de: 07-indexation
+modeles: b2b-lead-gen,e-commerce,local,media-affiliation,saas
 # --- rempli pendant la mission ---
 etat: hors-perimetre
 motif_hors_perimetre: "renvoi vers 07-indexation, branche autoritaire"

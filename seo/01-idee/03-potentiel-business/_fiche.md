@@ -6,6 +6,7 @@ volet: STRATEGIE
 statut_instrumentation: PY
 source_requise: "CPC (outil payant) ; à défaut signaux monétaires SERP"
 doublon_de: null
+modeles: b2b-lead-gen,e-commerce,local,media-affiliation,saas
 # --- rempli pendant la mission ---
 etat: a-faire
 motif_hors_perimetre: null

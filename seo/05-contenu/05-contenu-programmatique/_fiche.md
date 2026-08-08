@@ -6,6 +6,7 @@ volet: TRANSVERSAL
 statut_instrumentation: SD
 source_requise: "crawl"
 doublon_de: null
+modeles: e-commerce,local,media-affiliation
 # --- rempli pendant la mission ---
 etat: a-faire
 motif_hors_perimetre: null

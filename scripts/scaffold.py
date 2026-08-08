@@ -2,8 +2,8 @@
 
 Produit :
   seo/manifest.json                     source de verite machine
-  seo/<NN-branche>/_branche.md          16 fiches de branche
-  seo/<NN-branche>/<NN-noeud>/_fiche.md 82 fiches de noeud, hydratees
+  seo/<NN-branche>/_branche.md          17 fiches de branche
+  seo/<NN-branche>/<NN-noeud>/_fiche.md 87 fiches de noeud, hydratees
 
 Ce referentiel est le MODELE VIERGE. Il ne contient jamais de donnees client :
 l'espace de travail d'une mission est cree par new_mission.py, dans le projet
@@ -53,13 +53,14 @@ CHAMPS_MANIFESTE = (
     "methode",
     "critere_verdict",
     "doublon_de",
+    "modeles",
 )
 
 
 def construire_manifeste(donnees: dict) -> dict:
     return {
         "schema_version": "1.0.0",
-        "source": ".claude/skills/seo-audit-strategie/references/grille-82-noeuds.md",
+        "source": ".claude/skills/seo-audit-strategie/references/grille-noeuds.md",
         "avertissement": (
             "Genere par scripts/scaffold.py depuis la grille. Ne pas editer a la "
             "main : validate.py detecte toute derive. Le fichier input/Schema "

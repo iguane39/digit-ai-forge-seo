@@ -133,8 +133,19 @@ def front_matter(chemin: Path) -> dict:
 # ---------------------------------------------------------------- fiches
 
 
-def fiche_noeud(n: dict) -> str:
+MOTIF_MODELE = "modèle d'acquisition"
+
+
+def fiche_noeud(n: dict, modele: str | None = None) -> str:
+    """Fiche d'un noeud. Si `modele` est fourni et que le noeud est hors de sa
+    portee, la fiche nait deja marquee hors-perimetre : l'analyste ne perd pas de
+    temps sur un casier sans objet, et le motif dit pourquoi."""
     renvoi = n["doublon_de"]
+    hors_modele = (
+        modele is not None
+        and not renvoi
+        and modele not in n.get("modeles", [])
+    )
     entete = [
         "---",
         f"id: {n['id']}",
@@ -144,11 +155,16 @@ def fiche_noeud(n: dict) -> str:
         f"statut_instrumentation: {n['statut']}",
         f"source_requise: {json.dumps(n['source_requise'], ensure_ascii=False)}",
         f"doublon_de: {renvoi if renvoi else 'null'}",
+        f"modeles: {','.join(n.get('modeles', [])) or 'tous'}",
         "# --- rempli pendant la mission ---",
-        "etat: " + ("hors-perimetre" if renvoi else "a-faire"),
+        "etat: " + ("hors-perimetre" if (renvoi or hors_modele) else "a-faire"),
         "motif_hors_perimetre: "
-        + (f'"renvoi vers {renvoi}, branche autoritaire"' if renvoi else "null"),
-        "verdict: " + ("sans-objet" if renvoi else "null"),
+        + (
+            f'"renvoi vers {renvoi}, branche autoritaire"' if renvoi
+            else f'"{MOTIF_MODELE} {modele} — nœud hors portée"' if hors_modele
+            else "null"
+        ),
+        "verdict: " + ("sans-objet" if (renvoi or hors_modele) else "null"),
         "niveau_preuve: null",
         "date_mesure: null",
         "actions_liees: []",
@@ -166,7 +182,7 @@ def fiche_noeud(n: dict) -> str:
                 f"l'audit se fait dans **`{renvoi}/`**, jamais ici.",
                 "",
                 "Cette fiche n'a **aucun champ a remplir**. Elle existe pour que le compte",
-                "des 82 noeuds reste exact et pour qu'on ne puisse pas se tromper de casier.",
+                "des 87 noeuds reste exact et pour qu'on ne puisse pas se tromper de casier.",
                 "",
             ]
         )
@@ -306,7 +322,8 @@ baseline. Sans GA : 5 noeuds. Sans CRM : 4 noeuds, et aucun gain exprimable en e
 """
 
 
-def etat(client: str | None, domaine: str | None, date: str | None) -> str:
+def etat(client: str | None, domaine: str | None, date: str | None,
+         modele: str | None = None) -> str:
     return (
         json.dumps(
             {
@@ -314,6 +331,7 @@ def etat(client: str | None, domaine: str | None, date: str | None) -> str:
                 "client": client,
                 "domaine": domaine,
                 "date_creation": date,
+                "modele_acquisition": modele,
                 "etape_courante": "1-collecte",
                 "etapes": {
                     "1-collecte": {"statut": "a-faire", "note": None},
@@ -364,7 +382,7 @@ def readme_mission(client: str | None) -> str:
     return f"""# {titre}
 
 Espace de travail SEO de ce projet. Genere par **forge-seo**, qui fournit la
-methode et le referentiel des 82 noeuds ; **tout ce qui est produit ici reste
+methode et le referentiel des 87 noeuds ; **tout ce qui est produit ici reste
 ici**.
 
 ## Ou va quoi
@@ -372,7 +390,7 @@ ici**.
 | Dossier | Contenu | Etape du pipeline |
 |---|---|---|
 | `donnees/` | exports bruts, horodates, jamais modifies | 1. Collecte |
-| `analyse/` | 98 dossiers, une fiche par noeud | 2. Constat + 3. Interpretation |
+| `analyse/` | 104 dossiers, une fiche par noeud | 2. Constat + 3. Interpretation |
 | `livrables/` | documents composes, remis au client | 4. Projection + 5. Actions |
 | `cadrage.md` | entrees de la mission | prealable |
 | `etat.json` | avancement, permet la reprise | transversal |

@@ -11,7 +11,7 @@ Produit :
   <projet>/seo/.forge-seo.json    provenance : version de la grille, date
   <projet>/seo/.gitignore         garde-fou de confidentialite
   <projet>/seo/donnees/{gsc,ga,crm,logs,crawl}/
-  <projet>/seo/analyse/           98 dossiers, 82 fiches hydratees
+  <projet>/seo/analyse/           104 dossiers, 87 fiches hydratees
   <projet>/seo/livrables/
 
 REFUS D'ECRASEMENT : si <projet>/seo/ existe deja, le script s'arrete. Ecraser une
@@ -50,7 +50,7 @@ from gabarits import (
     registre_charger,
     registre_ecrire,
 )
-from grille import GRILLE, RACINE, lire
+from grille import GRILLE, MODELES, RACINE, lire
 
 REGISTRE = RACINE / "missions.json"
 
@@ -96,7 +96,7 @@ def lister() -> int:
 # -------------------------------------------------------------------- creation
 
 
-def creer(projet: Path, client: str, domaine: str) -> int:
+def creer(projet: Path, client: str, domaine: str, modele: str | None = None) -> int:
     projet = projet.resolve()
 
     if not projet.is_dir():
@@ -126,7 +126,7 @@ def creer(projet: Path, client: str, domaine: str) -> int:
     dossier(base, c)
     ecrire(base / "README.md", readme_mission(client), c, registre, False, base)
     ecrire(base / "cadrage.md", cadrage(), c, registre, False, base)
-    ecrire(base / "etat.json", etat(client, domaine, aujourdhui), c, registre, False, base)
+    ecrire(base / "etat.json", etat(client, domaine, aujourdhui, modele), c, registre, False, base)
     ecrire(base / ".gitignore", gitignore_mission(), c, registre, False, base)
     ecrire(
         base / ".forge-seo.json",
@@ -153,7 +153,7 @@ def creer(projet: Path, client: str, domaine: str) -> int:
         for n in b["noeuds"]:
             dn = db / n["slug_noeud"]
             dossier(dn, c)
-            ecrire(dn / "_fiche.md", fiche_noeud(n), c, registre, False, base)
+            ecrire(dn / "_fiche.md", fiche_noeud(n, modele), c, registre, False, base)
 
     dl = base / "livrables"
     dossier(dl, c)
@@ -176,6 +176,16 @@ def creer(projet: Path, client: str, domaine: str) -> int:
     print(f"  domaine  : {domaine}")
     print(f"  dossiers : {c.dossiers}")
     print(f"  fichiers : {c.crees}")
+    if modele:
+        hors = sum(
+            1
+            for b in donnees["branches"]
+            for n in b["noeuds"]
+            if not n["doublon_de"] and modele not in n.get("modeles", [])
+        )
+        print(f"  modele   : {modele} — {hors} nœud(s) hors portée, pré-marqués")
+    else:
+        print("  modele   : non déclaré — aucun nœud pré-marqué hors portée")
     print("")
     print("Etapes suivantes, DANS LE PROJET AUDITE :")
     print(f"  1. remplir  {base / 'cadrage.md'} (champs OBLIGATOIRE)")
@@ -193,6 +203,8 @@ def main() -> int:
     p.add_argument("--projet", help="chemin du projet audite (doit exister)")
     p.add_argument("--client", help="nom du client, pour les metadonnees")
     p.add_argument("--domaine", help="domaine audite, sans protocole")
+    p.add_argument("--modele", choices=sorted(MODELES),
+                   help="modele d'acquisition ; pre-marque les noeuds hors portee")
     p.add_argument("--liste", action="store_true", help="liste les missions creees")
     args = p.parse_args()
 
@@ -200,7 +212,7 @@ def main() -> int:
         return lister()
     if not (args.projet and args.client and args.domaine):
         p.error("--projet, --client et --domaine sont requis (ou utiliser --liste)")
-    return creer(Path(args.projet), args.client, args.domaine)
+    return creer(Path(args.projet), args.client, args.domaine, args.modele)
 
 
 if __name__ == "__main__":

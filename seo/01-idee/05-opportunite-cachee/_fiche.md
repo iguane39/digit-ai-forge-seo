@@ -6,6 +6,7 @@ volet: STRATEGIE
 statut_instrumentation: EX
 source_requise: "GSC (requêtes en impressions sans clic, positions 11-30) + questions People-Also-Ask"
 doublon_de: null
+modeles: b2b-lead-gen,e-commerce,local,media-affiliation,saas
 # --- rempli pendant la mission ---
 etat: a-faire
 motif_hors_perimetre: null

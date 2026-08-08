@@ -363,7 +363,7 @@ footer.doc{margin-top:24px;padding-top:14px;border-top:1px solid var(--line);
 /* Sous 900px, une ligne devient une carte : chaque cellule porte son intitule via
    data-l. Zero debordement horizontal, et un tableau de 10 colonnes reste lisible
    sur telephone. Contrepartie assumee : les declencheurs de filtre vivent dans le
-   thead, donc masques dans ce mode — filtrer 82 lignes sur 375px n'aurait de toute
+   thead, donc masques dans ce mode — filtrer 87 lignes sur 375px n'aurait de toute
    facon aucun sens. */
 @media (max-width:900px){
   .tw{border:0}

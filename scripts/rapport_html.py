@@ -4,7 +4,7 @@ Lit les donnees d'une mission (fiches, cadrage, etat, actions, snapshot) et prod
 une page autonome dans `<projet>/seo/livrables/`.
 
 Le livrable n'est pas un gabarit a remplir : c'est ce generateur. Un HTML saisi a la
-main pour 82 noeuds et 40 actions ne survit pas au deuxieme audit, et diverge de sa
+main pour 87 noeuds et 40 actions ne survit pas au deuxieme audit, et diverge de sa
 source des la premiere correction (decision D-11).
 
 Usage :
@@ -34,8 +34,8 @@ from gabarit_html import (
     section,
     tableau,
 )
-from gabarits import front_matter
-from grille import RACINE
+from gabarits import MOTIF_MODELE, front_matter
+from grille import NB_NOEUDS, RACINE
 
 MANIFESTE = RACINE / "seo" / "manifest.json"
 
@@ -189,6 +189,12 @@ def champ_cadrage(cadrage: str, libelle: str) -> str:
     return ""
 
 
+def hors_modele(n: dict) -> bool:
+    """Un noeud ecarte parce que le modele d'acquisition ne le concerne pas n'est
+    PAS une dette d'instrumentation : il n'y a rien a obtenir pour le lever."""
+    return MOTIF_MODELE in (n.get("motif_hors_perimetre") or "")
+
+
 # --------------------------------------------------------------------- blocs
 
 
@@ -240,14 +246,15 @@ def bloc_synthese(d: dict, compte: dict) -> str:
     snap = d["snapshot"]
     noeuds = d["noeuds"]
     mesures = sum(1 for n in noeuds if n.get("etat") == "fait")
-    hors = sum(1 for n in noeuds if n.get("etat") == "hors-perimetre")
+    hors_mod = sum(1 for n in noeuds if hors_modele(n))
+    hors = sum(1 for n in noeuds if n.get("etat") == "hors-perimetre") - hors_mod
     maturite = (snap.get("maturite") or {}).get("score")
 
     cartes = [
         f'<div class="card"><h3>Couverture</h3><p class="kpi">{mesures}<span class="mono"> / {len(noeuds)}</span>'
-        f"<small>nœuds instruits — {hors} hors périmètre</small></p></div>",
+        f"<small>nœuds instruits — {hors} non mesurables" + (f", {hors_mod} hors portée du modèle" if hors_mod else "") + "</small></p></div>",
         f'<div class="card"><h3>Maturité</h3><p class="kpi">{barre(maturite, 5, "maturité") if maturite else "n/d"}'
-        f"<small>« Machine SEO » — nœud 82</small></p></div>",
+        f"<small>« Machine SEO » — nœud 87</small></p></div>",
         f'<div class="card"><h3>Actions</h3><p class="kpi">{len(d["actions"])}'
         f"<small>chiffrées, priorisées, dispatchées</small></p></div>",
     ]
@@ -628,12 +635,14 @@ def bloc_couverture(d: dict) -> str:
         ])
     return (
         f"<p>Les {len(lignes)} nœuds de la grille, aucun omis. "
-        "Un nœud hors périmètre avec motif est un résultat, pas une lacune.</p>"
+        "Un nœud hors périmètre avec motif est un résultat, pas une lacune — "
+        "qu'il soit non mesurable faute de source, ou hors de la portée du "
+        "modèle d'acquisition retenu.</p>"
         + tableau(
             "t-couverture",
             ["#", "Branche", "Nœud", "Volet", "Instrumentation", "État", "Verdict / motif"],
             lignes,
-            "Couverture des 82 nœuds",
+            "Couverture de la grille",
             [4, 13, 15, 9, 20, 10, 29],
         )
     )
@@ -642,9 +651,19 @@ def bloc_couverture(d: dict) -> str:
 def bloc_dette(d: dict) -> str:
     dette = d["snapshot"].get("dette_instrumentation") or []
     if not dette:
-        hors = [n for n in d["noeuds"] if n.get("etat") == "hors-perimetre"]
+        # Ni les nœuds hors portée du modèle, ni les renvois de doublon ne sont une
+        # dette : dans les deux cas il n'y a rien à obtenir pour les lever. Les y
+        # laisser gonflerait artificiellement ce que le client croit devoir fournir.
+        hors = [
+            n for n in d["noeuds"]
+            if n.get("etat") == "hors-perimetre"
+            and not hors_modele(n)
+            and n.get("statut") != "RV"
+        ]
         if not hors:
-            return "<p>Aucune dette d'instrumentation enregistrée.</p>"
+            return ("<p>Aucune dette d'instrumentation enregistrée. Les nœuds écartés "
+                    "pour cause de modèle d'acquisition ne comptent pas : il n'y a "
+                    "rien à obtenir pour les lever.</p>")
         lignes = [
             [f'<span class="num">{esc(n["id"])}</span>', esc(n["branche"]), esc(n["noeud"]),
              esc((n.get("motif_hors_perimetre") or "").strip('"')),
@@ -679,7 +698,7 @@ def bloc_methode(d: dict) -> str:
         )
         lignes.append([esc(libelle), esc(dispo), esc(periode), esc(s.get("note") or "")])
     return (
-        "<p>Grille des 82 nœuds de <b>forge-seo</b>. Chaque verdict renvoie au nœud et au "
+        "<p>Grille des 87 nœuds de <b>forge-seo</b>. Chaque verdict renvoie au nœud et au "
         "critère qui l'a produit — c'est ce qui rend ce rapport opposable plutôt que "
         "déclaratif.</p>"
         f'<p class="trace">version de grille : {esc(prov.get("version_grille") or "—")} · '
@@ -736,7 +755,7 @@ def construire(d: dict) -> str:
         section("actions", "Actions à mettre en œuvre", bloc_actions(d)),
         section("gains", "Gains et priorités", bloc_gains(d)),
         section("trajectoire", "Trajectoire 12–24 mois", bloc_trajectoire(d), replie=True),
-        section("couverture", "Couverture des 82 nœuds", bloc_couverture(d), replie=True),
+        section("couverture", f"Couverture des {len(d['noeuds'])} nœuds", bloc_couverture(d), replie=True),
         section("dette", "Dette d'instrumentation", bloc_dette(d), replie=True),
         section("methode", "Méthode et traçabilité", bloc_methode(d), replie=True),
     ]

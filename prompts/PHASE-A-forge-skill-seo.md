@@ -10,7 +10,7 @@
 
 Tu travailles dans la forge `c:\dev\digit-ai-forge-seo`. Finalité : produire un **actif réutilisable** pour des prestations de diagnostic et de stratégie SEO facturées, exploitable par plusieurs projets clients, pas un rapport unique.
 
-Source de cadrage : `"input\Schéma SEO.MD"` — arborescence de **16 branches et 82 feuilles**. Traite-la comme un **sommaire à instrumenter**, jamais comme une méthode : elle donne les noms des sujets, aucune procédure, aucun seuil, aucune source de donnée.
+Source de cadrage : `"input\Schéma SEO.MD"` — arborescence de **17 branches et 87 feuilles**. Traite-la comme un **sommaire à instrumenter**, jamais comme une méthode : elle donne les noms des sujets, aucune procédure, aucun seuil, aucune source de donnée.
 
 Le skill produit devra couvrir **deux volets** :
 - **volet ÉTAT** — diagnostic du SEO actuel d'un site en production (ce qui est mesurable, mesuré) ;
@@ -41,7 +41,7 @@ Un skill Claude Code nommé **`seo-audit-strategie`**, construit dans `.claude/s
 | Fichier | Rôle | Contrainte |
 |---|---|---|
 | `SKILL.md` | déclencheurs, runbook des deux volets, garde-fous, contrat de sortie | < 500 lignes |
-| `references/grille-82-noeuds.md` | **le cœur du travail** — voir A2 | 82 lignes de nœuds, aucune omise |
+| `references/grille-noeuds.md` | **le cœur du travail** — voir A2 | 87 lignes de nœuds, aucune omise |
 | `references/sources-donnees.md` | matrice source × nœud, et dégradation quand une source manque | — |
 | `references/scoring.md` | échelles ancrées + formule de priorisation — voir A3 | — |
 | `references/strategie-future.md` | méthode du volet STRATÉGIE — voir A4 | — |
@@ -53,9 +53,9 @@ Applique la discipline du skill `write-a-skill` pour la structure, la formulatio
 
 ---
 
-## A2. Instrumentation des 82 nœuds — livrable central
+## A2. Instrumentation des 87 nœuds — livrable central
 
-Pour **chacun** des 82 nœuds du schéma, une ligne de table portant :
+Pour **chacun** des 87 nœuds du schéma, une ligne de table portant :
 
 ```
 branche | nœud | volet | question d'audit (1 phrase) | source de donnée requise |
@@ -67,9 +67,9 @@ méthode de collecte | seuil ou critère de verdict | statut d'instrumentation
 
 ### Règles dures
 
-1. **Les 82 nœuds figurent tous.** Aucun omis, aucun fusionné en douce. Compte-les en fin de table.
-2. **Doublons du schéma : la BRANCHE est autoritaire.** `Technique/Indexation` renvoie à la branche `Indexation` ; `Objectif/Autorité` renvoie à la branche `Autorité`. Signale le renvoi, n'audite pas deux fois, mais garde les lignes dans la table (82 = 82).
-3. **Routage des 16 branches par volet** — grille de départ à valider et à documenter :
+1. **Les 87 nœuds figurent tous.** Aucun omis, aucun fusionné en douce. Compte-les en fin de table.
+2. **Doublons du schéma : la BRANCHE est autoritaire.** `Technique/Indexation` renvoie à la branche `Indexation` ; `Objectif/Autorité` renvoie à la branche `Autorité`. Signale le renvoi, n'audite pas deux fois, mais garde les lignes dans la table (87 = 87).
+3. **Routage des 17 branches par volet** — grille de départ à valider et à documenter :
    - `Idée`, `Validation`, `Croissance` → **STRATÉGIE**
    - `Technique`, `Indexation`, `Signaux` → **ÉTAT**
    - `Architecture`, `Mots Clés`, `Contenu`, `Autorité`, `Discover`, `GEO`, `Mesure`, `Optimisation` → **TRANSVERSAL** (état constaté + cible à atteindre)
@@ -112,7 +112,7 @@ méthode de collecte | seuil ou critère de verdict | statut d'instrumentation
 
 Le skill sera invoqué depuis d'autres projets, sur d'autres sites, par d'autres runs. Donc :
 
-1. **Zéro chemin absolu** dans le skill. Aucune référence à `c:\dev\digit-ai-forge-seo`, aucune référence à `input\Schéma SEO.MD` : la matière du schéma est **recopiée** dans `references/grille-82-noeuds.md`, le skill ne dépend plus du fichier source.
+1. **Zéro chemin absolu** dans le skill. Aucune référence à `c:\dev\digit-ai-forge-seo`, aucune référence à `input\Schéma SEO.MD` : la matière du schéma est **recopiée** dans `references/grille-noeuds.md`, le skill ne dépend plus du fichier source.
 2. **Agnostique au répertoire courant.** Toutes les sorties sont relatives : `./output/seo/`. Le skill crée l'arborescence si absente.
 3. **Déclencheurs explicites** dans le `SKILL.md` : audit SEO, analyse SEO, diagnostic SEO, stratégie SEO, roadmap SEO, plan SEO 12 mois, visibilité Google, présence dans les réponses IA, GEO. Plus une section « ne pas déclencher pour » (rédaction d'un contenu isolé, question SEO factuelle ponctuelle, audit technique de performance web pur).
 4. **`assets/cadrage.template.md`** : formulaire d'entrée que le projet cible remplit avant le run — site cible, secteur, modèle d'acquisition, marché/langue/pays, 3 à 5 concurrents, audience du livrable, budget mensuel et capacité d'exécution, exports disponibles, objectif business à 12 mois. Chaque champ porte la mention `obligatoire` ou `optionnel — impact de son absence : …`.
@@ -144,7 +144,7 @@ Non négociables. Ce sont eux qui empêchent le skill de produire un audit fabri
 ## A7. Fin de Phase A — arrêt obligatoire
 
 Produis les fichiers, puis un récapitulatif de **15 lignes maximum** :
-- compteurs : nœuds `instrumentés` / `si export` / `si outil payant` / `non mesurables` (total = 82) ;
+- compteurs : nœuds `instrumentés` / `si export` / `si outil payant` / `non mesurables` (total = 87) ;
 - répartition par volet : `ÉTAT` / `STRATÉGIE` / `TRANSVERSAL` ;
 - liste exacte des entrées à fournir pour un run Phase B.
 
@@ -156,10 +156,10 @@ Puis termine par la question : **« Skill construit. Je l'installe en global et/
 
 - [ ] A0 produit **en premier**, listant explicitement l'absence de GSC et GA
 - [ ] Les 8 fichiers de A1 existent aux chemins indiqués
-- [ ] `grille-82-noeuds.md` contient **exactement 82 lignes de nœuds**, comptées et affichées
+- [ ] `grille-noeuds.md` contient **exactement 87 lignes de nœuds**, comptées et affichées
 - [ ] Chaque nœud porte : volet, question d'audit, source, méthode, critère de verdict, statut
 - [ ] Les 2 doublons du schéma (`Technique/Indexation`, `Objectif/Autorité`) sont signalés et arbitrés
-- [ ] Les 16 branches sont routées `ÉTAT` / `STRATÉGIE` / `TRANSVERSAL`, routage justifié
+- [ ] Les 17 branches sont routées `ÉTAT` / `STRATÉGIE` / `TRANSVERSAL`, routage justifié
 - [ ] `scoring.md` décrit les crans 1, 3 et 5 de chaque échelle, en unités concrètes
 - [ ] La formule de priorisation et son trait de coupe sont écrits noir sur blanc
 - [ ] `strategie-future.md` couvre les 7 points de A4, dont la règle de projection

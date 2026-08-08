@@ -21,8 +21,8 @@ Ce bloc vient avant toute conclusion. Il dit au lecteur ce qu'il peut croire.
 | Pages échantillonnées | N (méthode : …) |
 | Concurrents analysés | … |
 | Exports fournis | GSC : oui/non (période) · GA : oui/non (période) · CRM : oui/non |
-| Nœuds mesurés | N / 82 |
-| Nœuds non mesurables | N / 82 — détail dans `dette-instrumentation-<domaine>-<date>.md` |
+| Nœuds mesurés | N / 87 |
+| Nœuds non mesurables | N / 87 — détail dans `dette-instrumentation-<domaine>-<date>.md` |
 | Plafond de run | N fetches · N recherches web |
 | Rendu JavaScript | détecté oui/non — gabarits affectés : … |
 
@@ -39,7 +39,7 @@ Ce bloc vient avant toute conclusion. Il dit au lecteur ce qu'il peut croire.
 Une page, calibrée sur l'audience déclarée. Contenu :
 
 - **Le constat en trois phrases** — dont une qui nomme le blocage principal, sans le diluer.
-- **Score de maturité 1-5** (nœud 82, `Machine SEO`), justifié en une ligne.
+- **Score de maturité 1-5** (nœud 87, `Machine SEO`), justifié en une ligne.
 - **Les trois actions qui comptent** — les trois premières du tri, avec leur gain, leur effort et leur horizon.
 - **La cible 12 mois** — fourchette basse/haute, `[T4]`, avec renvoi au calcul du bloc 4.
 - **Ce qu'il faut fournir** pour lever les principales zones aveugles.
@@ -64,12 +64,12 @@ Format par point : le constat · la preuve étiquetée · **le mécanisme** (com
 
 > « Ce n'est pas optimal » n'est pas un mécanisme. « Les 8 pages money sont à 4 clics de l'accueil et reçoivent chacune moins de 2 liens internes contextuels : l'autorité interne se concentre sur le blog, et ces pages ne dépassent pas la page 2 sur leurs requêtes » en est un.
 
-### 2.4 Couverture 82/82 *(obligatoire, table compacte)*
+### 2.4 Couverture 87/87 *(obligatoire, table compacte)*
 
 | # | Nœud | Volet | Statut | Verdict ou motif de non-mesure |
 |---|---|---|---|---|
 
-82 lignes. Aucune omise. Le compte est affiché en fin de table.
+87 lignes. Aucune omise. Le compte est affiché en fin de table.
 
 ---
 

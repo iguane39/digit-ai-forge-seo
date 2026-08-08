@@ -35,6 +35,7 @@ CHAMPS_FICHE = [
     "statut_instrumentation",
     "source_requise",
     "doublon_de",
+    "modeles",
     "etat",
     "motif_hors_perimetre",
     "verdict",
@@ -70,7 +71,7 @@ class Rapport:
 
 
 def controler_fiches(base: Path, noeuds: list[dict]) -> list[str]:
-    """Presence, validite et coherence du front-matter des 82 fiches."""
+    """Presence, validite et coherence du front-matter des 87 fiches."""
     invalides: list[str] = []
     for n in noeuds:
         fiche = base / n["chemin"] / "_fiche.md"
@@ -111,7 +112,7 @@ def valider_referentiel() -> int:
     feuilles = sorted(f for b in branches for f in b.iterdir() if f.is_dir())
 
     r.controle(
-        "1. 16 branches, 82 feuilles, 98 dossiers sous seo/",
+        f"1. {NB_BRANCHES} branches, {NB_NOEUDS} feuilles, {NB_BRANCHES + NB_NOEUDS} dossiers sous seo/",
         len(branches) == NB_BRANCHES and len(feuilles) == NB_NOEUDS,
         f"{len(branches)} branches, {len(feuilles)} feuilles, "
         f"{len(branches) + len(feuilles)} au total",
@@ -119,7 +120,7 @@ def valider_referentiel() -> int:
 
     ids = sorted(n["id"] for n in manifeste["noeuds"])
     r.controle(
-        "2. identifiants 1-82 sans trou ni doublon",
+        f"2. identifiants 1-{NB_NOEUDS} sans trou ni doublon",
         ids == list(range(1, NB_NOEUDS + 1)),
         f"{len(ids)} identifiants, min {ids[0]}, max {ids[-1]}",
     )
@@ -163,7 +164,7 @@ def valider_referentiel() -> int:
         not mauvais and not non_ascii,
         f"{len(mauvais)} non conforme(s), {len(non_ascii)} non-ASCII"
         if (mauvais or non_ascii)
-        else "98 slugs conformes",
+        else f"{NB_BRANCHES + NB_NOEUDS} slugs conformes",
     )
 
     champs = (
@@ -179,18 +180,18 @@ def valider_referentiel() -> int:
             continue
         ecarts += [f"noeud {n['id']}, champ {k}" for k in champs if n[k] != m[k]]
     r.controle(
-        "6. aucune derive entre grille-82-noeuds.md et manifest.json",
+        "6. aucune derive entre grille-noeuds.md et manifest.json",
         not ecarts,
-        f"{len(ecarts)} ecart(s)" if ecarts else "82 noeuds identiques sur 11 champs",
+        f"{len(ecarts)} ecart(s)" if ecarts else f"{NB_NOEUDS} noeuds identiques sur 11 champs",
     )
 
     invalides = controler_fiches(SEO, manifeste["noeuds"])
     r.controle(
-        "7. les 82 fiches ont un front-matter valide et coherent",
+        f"7. les {NB_NOEUDS} fiches ont un front-matter valide et coherent",
         not invalides,
         f"{len(invalides)} fiche(s) invalide(s)"
         if invalides
-        else f"82 fiches, {len(CHAMPS_FICHE)} champs types chacune",
+        else f"{NB_NOEUDS} fiches, {len(CHAMPS_FICHE)} champs types chacune",
     )
     for msg in invalides[:5]:
         print(f"          {msg}")
@@ -239,7 +240,7 @@ def valider_mission(projet: Path) -> int:
     branches = sorted(p for p in analyse.iterdir() if p.is_dir()) if analyse.is_dir() else []
     feuilles = sorted(f for b in branches for f in b.iterdir() if f.is_dir())
     r.controle(
-        "1. 98 dossiers sous seo/analyse/",
+        f"1. {NB_BRANCHES + NB_NOEUDS} dossiers sous seo/analyse/",
         len(branches) == NB_BRANCHES and len(feuilles) == NB_NOEUDS,
         f"{len(branches)} branches, {len(feuilles)} feuilles",
     )
@@ -261,9 +262,9 @@ def valider_mission(projet: Path) -> int:
 
     invalides = controler_fiches(analyse, donnees["noeuds"])
     r.controle(
-        "3. les 82 fiches ont un front-matter valide et coherent",
+        f"3. les {NB_NOEUDS} fiches ont un front-matter valide et coherent",
         not invalides,
-        f"{len(invalides)} fiche(s) invalide(s)" if invalides else "82 fiches valides",
+        f"{len(invalides)} fiche(s) invalide(s)" if invalides else f"{NB_NOEUDS} fiches valides",
     )
     for msg in invalides[:5]:
         print(f"          {msg}")

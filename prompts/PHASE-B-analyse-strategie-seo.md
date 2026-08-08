@@ -10,7 +10,7 @@
 
 Produire l'**analyse du SEO actuel** et la **stratégie SEO future** d'un site, en deux volets, avec des actions chiffrées, priorisées et dispatchées par filière d'exécution.
 
-Commence par charger le skill `seo-audit-strategie` : il porte la grille des 82 nœuds, les échelles de scoring, la méthode du volet stratégie et les garde-fous. Ce prompt ne les redéfinit pas, il les déclenche.
+Commence par charger le skill `seo-audit-strategie` : il porte la grille des 87 nœuds, les échelles de scoring, la méthode du volet stratégie et les garde-fous. Ce prompt ne les redéfinit pas, il les déclenche.
 
 ---
 
@@ -48,12 +48,12 @@ Avant d'analyser, annonce : périmètre retenu, plafond de run (fetches et reche
 
 ## B1. Volet ÉTAT — le SEO actuel
 
-Applique la grille des 82 nœuds, branches routées `ÉTAT` et `TRANSVERSAL`.
+Applique la grille des 87 nœuds, branches routées `ÉTAT` et `TRANSVERSAL`.
 
 - **Points forts** — 10 maximum, chacun avec sa preuve étiquetée `[T1]` / `[T2]` / `[T3]` / `[T4]`.
 - **Points faibles** — 15 maximum, triés par impact décroissant, chacun avec sa preuve étiquetée et son mécanisme (pourquoi cela coûte du trafic ou des leads, pas seulement « ce n'est pas optimal »).
 - **Baseline mesurée** — l'état de référence chiffré au jour du run : ce qui sera comparé au prochain run. Uniquement des `[T1]` et `[T2]`.
-- **Table de couverture 82/82** — une ligne par nœud, compacte : `nœud | volet | statut | verdict ou motif de non-mesure`. Aucun nœud absent.
+- **Table de couverture 87/87** — une ligne par nœud, compacte : `nœud | volet | statut | verdict ou motif de non-mesure`. Aucun nœud absent.
 
 ---
 
@@ -132,7 +132,7 @@ Avant de livrer, passe le rapport à l'oracle du skill `quality-oracles`.
 - [ ] B0 produit avant toute analyse : périmètre, plafond de run, échantillonnage, nœuds non mesurables comptés
 - [ ] **Zéro chiffre sans étiquette** `[T1]` / `[T2]` / `[T3]` / `[T4]`
 - [ ] Zéro position moyenne, impression, clic ou CTR SERP avancé sans export GSC
-- [ ] Table de couverture **82/82** présente, aucun nœud absent
+- [ ] Table de couverture **87/87** présente, aucun nœud absent
 - [ ] Volet ÉTAT : ≤ 10 points forts, ≤ 15 points faibles, chacun avec preuve **et** mécanisme
 - [ ] Baseline mesurée isolée, composée uniquement de `[T1]` et `[T2]`
 - [ ] Volet STRATÉGIE : cible 12/24 mois avec calcul visible, fourchette et note de sensibilité

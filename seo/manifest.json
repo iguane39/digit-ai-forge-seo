@@ -1,11 +1,11 @@
 {
   "schema_version": "1.0.0",
-  "source": ".claude/skills/seo-audit-strategie/references/grille-82-noeuds.md",
+  "source": ".claude/skills/seo-audit-strategie/references/grille-noeuds.md",
   "avertissement": "Genere par scripts/scaffold.py depuis la grille. Ne pas editer a la main : validate.py detecte toute derive. Le fichier input/Schema SEO.MD n'est parse par aucun script (indentation cassee du bloc Objectif -- voir scripts/grille.py).",
   "comptes": {
-    "branches": 16,
-    "noeuds": 82,
-    "dossiers": 98
+    "branches": 17,
+    "noeuds": 87,
+    "dossiers": 104
   },
   "branches": [
     {
@@ -155,8 +155,8 @@
     },
     {
       "rang": 12,
-      "nom": "Automatisation",
-      "slug": "12-automatisation",
+      "nom": "Local",
+      "slug": "12-local",
       "volet_dominant": "TRANSVERSAL",
       "noeuds": [
         58,
@@ -168,8 +168,8 @@
     },
     {
       "rang": 13,
-      "nom": "Mesure",
-      "slug": "13-mesure",
+      "nom": "Automatisation",
+      "slug": "13-automatisation",
       "volet_dominant": "TRANSVERSAL",
       "noeuds": [
         63,
@@ -181,8 +181,8 @@
     },
     {
       "rang": 14,
-      "nom": "Optimisation",
-      "slug": "14-optimisation",
+      "nom": "Mesure",
+      "slug": "14-mesure",
       "volet_dominant": "TRANSVERSAL",
       "noeuds": [
         68,
@@ -194,9 +194,9 @@
     },
     {
       "rang": 15,
-      "nom": "Croissance",
-      "slug": "15-croissance",
-      "volet_dominant": "STRATEGIE",
+      "nom": "Optimisation",
+      "slug": "15-optimisation",
+      "volet_dominant": "TRANSVERSAL",
       "noeuds": [
         73,
         74,
@@ -207,15 +207,28 @@
     },
     {
       "rang": 16,
-      "nom": "Objectif",
-      "slug": "16-objectif",
-      "volet_dominant": "CADRAGE",
+      "nom": "Croissance",
+      "slug": "16-croissance",
+      "volet_dominant": "STRATEGIE",
       "noeuds": [
         78,
         79,
         80,
         81,
         82
+      ]
+    },
+    {
+      "rang": 17,
+      "nom": "Objectif",
+      "slug": "17-objectif",
+      "volet_dominant": "CADRAGE",
+      "noeuds": [
+        83,
+        84,
+        85,
+        86,
+        87
       ]
     }
   ],
@@ -233,7 +246,14 @@
       "source_requise": "crawl du site",
       "methode": "clustering thématique des URLs par segment d'URL et par H1 ; lecture des 3 pages les plus liées en interne",
       "critere_verdict": "≥ 70 % des pages rattachables à ≤ 3 thèmes cohérents",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 2,
@@ -248,7 +268,14 @@
       "source_requise": "SERP approximée + contenu de la page",
       "methode": "pour 10 requêtes cibles du cadrage, relever le format des 5 premiers résultats (transactionnel / informationnel / comparatif / local) et le comparer au format de la page du site",
       "critere_verdict": "mismatch de format sur ≤ 20 % des requêtes testées",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 3,
@@ -263,7 +290,14 @@
       "source_requise": "CPC (outil payant) ; à défaut signaux monétaires SERP",
       "methode": "comptage des annonces, blocs Shopping et comparateurs en SERP sur les requêtes cibles ; CPC moyen si outil disponible",
       "critere_verdict": "à calibrer — pas de seuil universel, dépend du modèle d'acquisition",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 4,
@@ -278,7 +312,14 @@
       "source_requise": "SERP approximée + crawl léger des concurrents",
       "methode": "pour 10 requêtes, relever les domaines présents et les classer : marque nationale / pure player spécialisé / média généraliste / concurrent direct / résultat faible (forum, page fine, hors-sujet)",
       "critere_verdict": "≥ 2 résultats classés « faibles » en top 10 = requête attaquable",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 5,
@@ -293,7 +334,14 @@
       "source_requise": "GSC (requêtes en impressions sans clic, positions 11-30) + questions People-Also-Ask",
       "methode": "croiser les requêtes GSC hors top 10 avec les questions suggérées en SERP ; retenir celles dont aucun résultat top 5 ne traite le sujet en page dédiée",
       "critere_verdict": "≥ 10 requêtes qualifiées pour ouvrir un chantier",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 6,
@@ -308,7 +356,14 @@
       "source_requise": "outil de volume (Keyword Planner, Semrush, Ahrefs) ou impressions GSC comme proxy",
       "methode": "relevé direct ; à défaut, impressions GSC sur 12 mois comme plancher observé (jamais comme volume de marché)",
       "critere_verdict": "aucun — donnée de cadrage, pas de verdict",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 7,
@@ -323,7 +378,14 @@
       "source_requise": "CRM + dépenses média du client",
       "methode": "déclaratif client, à reprendre en `[T2]`",
       "critere_verdict": "aucun — donnée de cadrage",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 8,
@@ -338,7 +400,14 @@
       "source_requise": "CRM ou e-commerce",
       "methode": "déclaratif client, à reprendre en `[T2]`. Sans lui, aucun gain ne peut être exprimé en €",
       "critere_verdict": "aucun — donnée de cadrage",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 9,
@@ -353,7 +422,14 @@
       "source_requise": "index de backlinks (autorité des top 10) ; à défaut proxy observable",
       "methode": "proxy sans outil : nombre de marques fortes en top 10 + profondeur et ancienneté des pages classées + longueur/profondeur du contenu classé",
       "critere_verdict": "à calibrer par marché ; produire un score relatif 1-5, jamais un score absolu emprunté à un outil absent",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 10,
@@ -368,7 +444,14 @@
       "source_requise": "GA + CRM + historique de publication",
       "methode": "croiser date de publication, date de première conversion attribuée, et délai médian",
       "critere_verdict": "aucun — donnée de calibrage des projections",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 11,
@@ -383,7 +466,14 @@
       "source_requise": "crawl",
       "methode": "arbre d'URL + graphe de liens internes ; mesurer le taux de liens internes restant dans le même silo",
       "critere_verdict": "≥ 60 % des liens internes intra-silo",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 12,
@@ -398,7 +488,14 @@
       "source_requise": "crawl + cadrage (requêtes money)",
       "methode": "pour chaque requête money du cadrage, identifier la page cible ; détecter les cas où deux pages visent la même requête",
       "critere_verdict": "1 page par requête money (0 cannibalisation) **et** profondeur ≤ 2 clics",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 13,
@@ -413,7 +510,14 @@
       "source_requise": "crawl",
       "methode": "compter les liens internes contextuels entrants vers chaque page money, en excluant menus et pieds de page",
       "critere_verdict": "≥ 3 satellites par page money, liens en corps de texte",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 14,
@@ -428,7 +532,14 @@
       "source_requise": "crawl",
       "methode": "compter les liens internes entrants par page (hors navigation) ; classer par décile",
       "critere_verdict": "les pages money figurent dans le décile supérieur",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 15,
@@ -443,7 +554,14 @@
       "source_requise": "crawl",
       "methode": "parcours en largeur depuis l'accueil ; profondeur minimale par URL",
       "critere_verdict": "0 page money > 3 clics **et** ≥ 90 % des pages à valeur ≤ 4 clics",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 16,
@@ -458,7 +576,14 @@
       "source_requise": "cadrage + crawl (couverture) ; GSC (performance)",
       "methode": "croiser la liste des requêtes money du cadrage avec les pages existantes",
       "critere_verdict": "100 % des requêtes money ont une page dédiée",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 17,
@@ -473,7 +598,14 @@
       "source_requise": "GSC (requêtes, clics)",
       "methode": "distribution des clics par requête ; part des requêtes < 10 clics/mois",
       "critere_verdict": "≥ 40 % des clics issus de la traîne = base saine ; < 15 % = dépendance à quelques requêtes",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 18,
@@ -488,7 +620,14 @@
       "source_requise": "People-Also-Ask, forums et communautés du secteur, GSC",
       "methode": "extraire 30 questions récurrentes ; vérifier pour chacune l'existence d'une réponse identifiable sur le site",
       "critere_verdict": "≥ 70 % des 30 questions traitées, réponse repérable sous un titre",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 19,
@@ -503,7 +642,14 @@
       "source_requise": "GSC exclusivement",
       "methode": "filtrer les requêtes à impressions élevées et CTR bas, et celles en position 11-30 avec volume",
       "critere_verdict": "liste priorisée par (impressions × écart de CTR attendu)",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 20,
@@ -518,7 +664,14 @@
       "source_requise": "SERP approximée",
       "methode": "scorer la faiblesse du top 10 : présence de forums, pages fines, résultats hors intention, absence de page dédiée chez les concurrents",
       "critere_verdict": "≥ 3 signaux de faiblesse sur le top 10 = requête prioritaire",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 21,
@@ -533,7 +686,14 @@
       "source_requise": "crawl",
       "methode": "pour chaque silo identifié au nœud 11, chercher la page la plus complète et la plus liée",
       "critere_verdict": "1 pilier par silo, couvrant le sujet de bout en bout, ≥ 5 liens sortants internes vers son silo",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 22,
@@ -548,7 +708,14 @@
       "source_requise": "crawl + questions du nœud 18",
       "methode": "cartographier les contenus par étape du parcours (découverte / évaluation / décision)",
       "critere_verdict": "aucune étape du parcours sans contenu",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 23,
@@ -563,7 +730,14 @@
       "source_requise": "crawl + SERP",
       "methode": "vérifier l'existence de pages comparatives ; relever qui occupe ces SERP",
       "critere_verdict": "présence d'au moins une page par famille comparative pertinente",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 24,
@@ -578,7 +752,14 @@
       "source_requise": "crawl (HTML)",
       "methode": "échantillonner les blocs de questions ; mesurer la distance entre le titre-question et la réponse",
       "critere_verdict": "réponse en ≤ 60 mots immédiatement sous le titre de la question",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 25,
@@ -593,7 +774,12 @@
       "source_requise": "crawl",
       "methode": "détecter les motifs d'URL répétés ; échantillonner 10 pages du même motif ; mesurer la part de contenu unique hors gabarit",
       "critere_verdict": "≥ 40 % de contenu unique par page **et** valeur propre pour l'utilisateur, sinon candidat au nœud 74",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "e-commerce",
+        "local",
+        "media-affiliation"
+      ]
     },
     {
       "id": 26,
@@ -608,7 +794,14 @@
       "source_requise": "crawl (HTML brut) + vérification web datée",
       "methode": "vérifier : réponse directe en tête de page, affirmations factuelles attribuables, structure de titres explicite, données chiffrées sourcées, contenu essentiel présent dans le HTML et non injecté en JS",
       "critere_verdict": "≥ 4 des 5 critères sur les pages à enjeu",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 27,
@@ -623,7 +816,14 @@
       "source_requise": "`robots.txt`, codes HTTP, chaînes de redirection",
       "methode": "vérifier les directives `robots.txt` contre les pages à valeur ; relever les codes HTTP et les chaînes de redirection sur l'échantillon",
       "critere_verdict": "0 blocage sur page à valeur · 0 chaîne de redirection > 2 sauts · 0 boucle",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 28,
@@ -638,7 +838,14 @@
       "source_requise": "—",
       "methode": "**renvoi vers la branche `Indexation`, nœuds 33-37**",
       "critere_verdict": "ne pas auditer ici",
-      "doublon_de": "07-indexation"
+      "doublon_de": "07-indexation",
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 29,
@@ -653,7 +860,14 @@
       "source_requise": "logs serveur ou CDN",
       "methode": "analyse des hits Googlebot par type de page et par profondeur ; détection du crawl gaspillé",
       "critere_verdict": "aucun — diagnostic descriptif",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 30,
@@ -668,7 +882,14 @@
       "source_requise": "crawl (HTML + en-têtes)",
       "methode": "relever la canonical de chaque page de l'échantillon ; détecter les canonicals croisées, vers non-200, ou incohérentes avec le sitemap et les hreflang",
       "critere_verdict": "0 canonical vers une page non-200 · 0 canonical croisée non intentionnelle · cohérence avec hreflang",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 31,
@@ -683,7 +904,14 @@
       "source_requise": "données de terrain publiques (CrUX / PageSpeed Insights)",
       "methode": "relever les métriques de terrain sur les gabarits principaux, mobile en priorité",
       "critere_verdict": "seuils **à vérifier au run** — ne pas citer de métrique retirée du référentiel",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 32,
@@ -698,7 +926,14 @@
       "source_requise": "crawl (JSON-LD, microdata)",
       "methode": "extraire le balisage de l'échantillon ; valider la syntaxe ; vérifier l'adéquation type de balisage / type de page ; détecter le balisage non conforme aux règles d'éligibilité",
       "critere_verdict": "0 erreur bloquante · balisage présent sur 100 % des gabarits éligibles · 0 balisage abusif",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 33,
@@ -713,7 +948,14 @@
       "source_requise": "`sitemap.xml` + crawl",
       "methode": "croiser les URLs du sitemap avec les codes HTTP, les `noindex` et les canonicals",
       "critere_verdict": "0 URL non-200 · 0 URL en `noindex` · 0 URL canonicalisée ailleurs · ≥ 95 % des pages à valeur présentes",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 34,
@@ -728,7 +970,14 @@
       "source_requise": "GSC — rapport d'indexation des pages",
       "methode": "relever les pages indexées, non indexées et leur motif ; hiérarchiser les motifs par volume",
       "critere_verdict": "0 page à valeur en « détectée non indexée » ou « explorée non indexée »",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 35,
@@ -743,7 +992,14 @@
       "source_requise": "GSC + dates de publication",
       "methode": "délai médian entre date de publication et première impression",
       "critere_verdict": "délai médian ≤ 7 jours",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 36,
@@ -758,7 +1014,14 @@
       "source_requise": "GSC (fiable) ; à défaut inspection page par page",
       "methode": "échantillonner les pages de profondeur ≥ 4 issues du nœud 15 et vérifier leur statut d'indexation",
       "critere_verdict": "≥ 80 % des pages profondes à valeur indexées",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 37,
@@ -773,7 +1036,14 @@
       "source_requise": "GSC + crawl",
       "methode": "comparer le nombre de pages crawlables à valeur au nombre de pages indexées",
       "critere_verdict": "≥ 80 % — un ratio plus bas signale du contenu jugé sans valeur par Google, pas un problème technique",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 38,
@@ -788,7 +1058,14 @@
       "source_requise": "index de backlinks tiers (payant)",
       "methode": "relevé des domaines référents, de leur thématique et de leur qualité ; comparaison aux concurrents du cadrage",
       "critere_verdict": "aucun seuil absolu — comparaison relative aux concurrents uniquement",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 39,
@@ -803,7 +1080,14 @@
       "source_requise": "GSC (clics, impressions)",
       "methode": "relevé sur 12 mois glissants, avec tendance",
       "critere_verdict": "aucun — baseline",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 40,
@@ -818,7 +1102,14 @@
       "source_requise": "index de backlinks ; à défaut mentions trouvées en recherche web",
       "methode": "classer les domaines référents par proximité thématique",
       "critere_verdict": "≥ 60 % des domaines référents thématiquement proches",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 41,
@@ -833,7 +1124,14 @@
       "source_requise": "recherche web",
       "methode": "rechercher la marque hors du domaine propre ; compter et qualifier les sources (presse, annuaire, forum, partenaire, avis)",
       "critere_verdict": "≥ 10 mentions qualifiées hors annuaires automatiques",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 42,
@@ -848,7 +1146,14 @@
       "source_requise": "recherche web + crawl des 404",
       "methode": "croiser les mentions du nœud 41 sans lien sortant, et les URLs en 404 recevant des liens",
       "critere_verdict": "liste nominative d'opportunités, chiffrée en nombre de domaines",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 43,
@@ -863,7 +1168,14 @@
       "source_requise": "GSC (impressions, clics, position)",
       "methode": "comparer le CTR observé au CTR médian du site pour la même tranche de position",
       "critere_verdict": "écart négatif > 30 % vs médiane du site = titre/meta à retravailler",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 44,
@@ -878,7 +1190,14 @@
       "source_requise": "GA (acquisition)",
       "methode": "relevé des domaines référents par sessions",
       "critere_verdict": "aucun — descriptif",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 45,
@@ -893,7 +1212,14 @@
       "source_requise": "GA (acquisition)",
       "methode": "part des sessions d'origine sociale",
       "critere_verdict": "aucun — descriptif. **La présence sociale est observable ; le trafic qu'elle génère ne l'est pas**",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 46,
@@ -908,7 +1234,14 @@
       "source_requise": "GA (engagement, parcours)",
       "methode": "taux d'engagement, pages par session et conversions sur le segment organique",
       "critere_verdict": "à calibrer sur la médiane du site, jamais sur un standard sectoriel emprunté",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 47,
@@ -923,7 +1256,14 @@
       "source_requise": "avis publics, commentaires, forums",
       "methode": "collecter et classer les retours par thème récurrent (produit, service, contenu, expérience)",
       "critere_verdict": "≥ 3 thèmes récurrents identifiés, avec verbatims cités",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 48,
@@ -938,7 +1278,11 @@
       "source_requise": "crawl (dates) + recherche web",
       "methode": "repérer les contenus liés à l'actualité du secteur et leur fraîcheur ; comparer au rythme du secteur",
       "critere_verdict": "≥ 1 contenu d'actualité par mois pour un site à ambition Discover, sinon nœud hors périmètre",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "e-commerce",
+        "media-affiliation"
+      ]
     },
     {
       "id": 49,
@@ -953,7 +1297,11 @@
       "source_requise": "crawl (balises `title`, H1)",
       "methode": "échantillon de 20 titres : longueur, présence d'un bénéfice ou d'une tension, unicité, cohérence avec le contenu réel",
       "critere_verdict": "0 titre dupliqué · 0 promesse non tenue par la page · longueur adaptée à l'affichage SERP",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "e-commerce",
+        "media-affiliation"
+      ]
     },
     {
       "id": 50,
@@ -968,7 +1316,11 @@
       "source_requise": "dates observables + `lastmod` du sitemap",
       "methode": "distribution des dates de publication et de modification sur 12 mois",
       "critere_verdict": "cadence régulière et déclarée ; 0 `lastmod` faussement actualisé en masse",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "e-commerce",
+        "media-affiliation"
+      ]
     },
     {
       "id": 51,
@@ -983,7 +1335,11 @@
       "source_requise": "recherche web",
       "methode": "rechercher les reprises de titres et d'extraits ; relever les sources reprenant le contenu",
       "critere_verdict": "≥ 3 reprises hors agrégateurs automatiques",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "e-commerce",
+        "media-affiliation"
+      ]
     },
     {
       "id": 52,
@@ -998,7 +1354,11 @@
       "source_requise": "GSC / GA (séries temporelles)",
       "methode": "détecter les ruptures de série et les rattacher à une page ou un sujet",
       "critere_verdict": "aucun — diagnostic descriptif, sert à identifier ce qui fonctionne",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "e-commerce",
+        "media-affiliation"
+      ]
     },
     {
       "id": 53,
@@ -1013,7 +1373,14 @@
       "source_requise": "crawl (schema, page « à propos ») + recherche web",
       "methode": "vérifier le balisage `Organization` / `Person`, la cohérence des informations d'identité sur toutes les pages, les liens `sameAs` vers des profils tiers, et l'existence d'une page d'identité factuelle",
       "critere_verdict": "balisage d'entité présent · identité cohérente partout · ≥ 3 `sameAs` vérifiables",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 54,
@@ -1028,7 +1395,14 @@
       "source_requise": "recherche web",
       "methode": "rechercher le nom de marque seul ; détecter les homonymies et les entités concurrentes qui captent la requête",
       "critere_verdict": "le site occupe la première position sur son nom de marque, sans confusion d'entité",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 55,
@@ -1043,7 +1417,14 @@
       "source_requise": "recherche web",
       "methode": "rechercher les sujets propriétaires du site et relever qui est cité comme source",
       "critere_verdict": "≥ 3 citations comme source sur des sujets du site",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 56,
@@ -1058,7 +1439,14 @@
       "source_requise": "crawl + recherche web",
       "methode": "échantillon de 10 pages : chercher au moins un élément introuvable ailleurs (donnée propre, expérience vécue, méthode, chiffre original)",
       "critere_verdict": "≥ 60 % des pages de l'échantillon portent un élément non substituable",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 57,
@@ -1073,382 +1461,647 @@
       "source_requise": "test manuel documenté + vérification web datée du protocole",
       "methode": "**protocole à établir au run** : les surfaces et leur comportement changent. Tester N requêtes cibles, consigner la formulation exacte, la date, la surface interrogée, et si le site est cité",
       "critere_verdict": "taux de citation sur les requêtes cibles, relevé et daté",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
       "id": 58,
+      "branche": "Local",
+      "slug_branche": "12-local",
+      "noeud": "Fiche D'Établissement",
+      "slug_noeud": "01-fiche-d-etablissement",
+      "chemin": "12-local/01-fiche-d-etablissement",
+      "volet": "TRANSVERSAL",
+      "statut": "SD",
+      "question_audit": "La fiche d'établissement existe-t-elle, est-elle complète et revendiquée ?",
+      "source_requise": "recherche web sur la marque + le lieu",
+      "methode": "relever la présence de la fiche, son exhaustivité (catégorie principale, horaires, description, photos, attributs) et l'existence d'un propriétaire déclaré",
+      "critere_verdict": "fiche revendiquée · catégorie principale exacte · horaires à jour · ≥ 5 photos",
+      "doublon_de": null,
+      "modeles": [
+        "local"
+      ]
+    },
+    {
+      "id": 59,
+      "branche": "Local",
+      "slug_branche": "12-local",
+      "noeud": "Cohérence NAP",
+      "slug_noeud": "02-coherence-nap",
+      "chemin": "12-local/02-coherence-nap",
+      "volet": "TRANSVERSAL",
+      "statut": "SD",
+      "question_audit": "Le nom, l'adresse et le téléphone sont-ils identiques partout ?",
+      "source_requise": "crawl du site + recherche web",
+      "methode": "comparer le triplet du site (mentions légales, contact, pied de page, balisage) à celui de la fiche d'établissement et des annuaires trouvés",
+      "critere_verdict": "0 divergence sur les 3 champs, balisage d'établissement présent et cohérent",
+      "doublon_de": null,
+      "modeles": [
+        "local"
+      ]
+    },
+    {
+      "id": 60,
+      "branche": "Local",
+      "slug_branche": "12-local",
+      "noeud": "Citations Et Annuaires",
+      "slug_noeud": "03-citations-et-annuaires",
+      "chemin": "12-local/03-citations-et-annuaires",
+      "volet": "TRANSVERSAL",
+      "statut": "SD",
+      "question_audit": "La présence sur les annuaires locaux et sectoriels est-elle établie ?",
+      "source_requise": "recherche web",
+      "methode": "inventorier les annuaires du secteur et de la zone ; relever présence, exactitude et fraîcheur de chaque fiche",
+      "critere_verdict": "présence sur ≥ 60 % des annuaires de référence du secteur, sans donnée périmée",
+      "doublon_de": null,
+      "modeles": [
+        "local"
+      ]
+    },
+    {
+      "id": 61,
+      "branche": "Local",
+      "slug_branche": "12-local",
+      "noeud": "Avis Locaux",
+      "slug_noeud": "04-avis-locaux",
+      "chemin": "12-local/04-avis-locaux",
+      "volet": "TRANSVERSAL",
+      "statut": "SD",
+      "question_audit": "Quel est le volume, la note et la dynamique des avis, et sont-ils traités ?",
+      "source_requise": "avis publics",
+      "methode": "relever volume, note moyenne, rythme d'acquisition sur 12 mois et taux de réponse du gestionnaire",
+      "critere_verdict": "rythme régulier · taux de réponse ≥ 50 % · aucune période de 3 mois sans avis",
+      "doublon_de": null,
+      "modeles": [
+        "local"
+      ]
+    },
+    {
+      "id": 62,
+      "branche": "Local",
+      "slug_branche": "12-local",
+      "noeud": "Pages Par Zone",
+      "slug_noeud": "05-pages-par-zone",
+      "chemin": "12-local/05-pages-par-zone",
+      "volet": "TRANSVERSAL",
+      "statut": "SD",
+      "question_audit": "Existe-t-il une page par zone desservie, et portent-elles un contenu propre ?",
+      "source_requise": "crawl",
+      "methode": "repérer les pages géolocalisées ; mesurer la part de contenu unique hors gabarit et la présence d'éléments propres à la zone",
+      "critere_verdict": "1 page par zone à enjeu · ≥ 40 % de contenu unique · 0 duplication entre zones",
+      "doublon_de": null,
+      "modeles": [
+        "local"
+      ]
+    },
+    {
+      "id": 63,
       "branche": "Automatisation",
-      "slug_branche": "12-automatisation",
+      "slug_branche": "13-automatisation",
       "noeud": "Agents IA",
       "slug_noeud": "01-agents-ia",
-      "chemin": "12-automatisation/01-agents-ia",
+      "chemin": "13-automatisation/01-agents-ia",
       "volet": "TRANSVERSAL",
       "statut": "SD",
       "question_audit": "Quelles tâches SEO sont déjà agentifiées chez le client ?",
       "source_requise": "déclaratif client",
       "methode": "inventaire des automatisations existantes et de leur périmètre",
       "critere_verdict": "aucun — sert à calibrer le régime d'automatisation des actions",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
-      "id": 59,
+      "id": 64,
       "branche": "Automatisation",
-      "slug_branche": "12-automatisation",
+      "slug_branche": "13-automatisation",
       "noeud": "Audits Massifs",
       "slug_noeud": "02-audits-massifs",
-      "chemin": "12-automatisation/02-audits-massifs",
+      "chemin": "13-automatisation/02-audits-massifs",
       "volet": "TRANSVERSAL",
       "statut": "SD",
       "question_audit": "La capacité d'auditer N pages en série existe-t-elle ?",
       "source_requise": "déclaratif + observation de l'outillage",
       "methode": "vérifier l'existence d'un crawler, d'un accès aux données, d'un format de sortie exploitable",
       "critere_verdict": "capacité présente ou absente, avec le coût de sa mise en place",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
-      "id": 60,
+      "id": 65,
       "branche": "Automatisation",
-      "slug_branche": "12-automatisation",
+      "slug_branche": "13-automatisation",
       "noeud": "Monitoring",
       "slug_noeud": "03-monitoring",
-      "chemin": "12-automatisation/03-monitoring",
+      "chemin": "13-automatisation/03-monitoring",
       "volet": "TRANSVERSAL",
       "statut": "SD",
       "question_audit": "Existe-t-il une surveillance des positions, de l'indexation et des erreurs ?",
       "source_requise": "déclaratif",
       "methode": "inventaire des alertes en place et de leur destinataire",
       "critere_verdict": "alerte active sur : chute d'indexation, erreurs 5xx, chute de trafic organique",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
-      "id": 61,
+      "id": 66,
       "branche": "Automatisation",
-      "slug_branche": "12-automatisation",
+      "slug_branche": "13-automatisation",
       "noeud": "Génération De Pages",
       "slug_noeud": "04-generation-de-pages",
-      "chemin": "12-automatisation/04-generation-de-pages",
+      "chemin": "13-automatisation/04-generation-de-pages",
       "volet": "TRANSVERSAL",
       "statut": "SD",
       "question_audit": "Des pages sont-elles générées à l'échelle, et avec quel contrôle qualité ?",
       "source_requise": "crawl (nœud 25) + déclaratif",
       "methode": "relier les motifs d'URL détectés au processus de génération déclaré ; identifier le point de contrôle qualité",
       "critere_verdict": "tout gabarit génératif a un contrôle qualité nommé avant publication",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
-      "id": 62,
+      "id": 67,
       "branche": "Automatisation",
-      "slug_branche": "12-automatisation",
+      "slug_branche": "13-automatisation",
       "noeud": "Détection Opportunités",
       "slug_noeud": "05-detection-opportunites",
-      "chemin": "12-automatisation/05-detection-opportunites",
+      "chemin": "13-automatisation/05-detection-opportunites",
       "volet": "TRANSVERSAL",
       "statut": "SD",
       "question_audit": "Existe-t-il un mécanisme de détection continue d'opportunités ?",
       "source_requise": "déclaratif",
       "methode": "vérifier l'existence d'une boucle : source de données → règle de détection → destinataire",
       "critere_verdict": "mécanisme présent ou absent ; s'il est absent, candidat prioritaire au quadrant `IA + gratuit`",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
-      "id": 63,
+      "id": 68,
       "branche": "Mesure",
-      "slug_branche": "13-mesure",
+      "slug_branche": "14-mesure",
       "noeud": "Impressions",
       "slug_noeud": "01-impressions",
-      "chemin": "13-mesure/01-impressions",
+      "chemin": "14-mesure/01-impressions",
       "volet": "TRANSVERSAL",
       "statut": "EX",
       "question_audit": "Quel volume d'impressions et quelle tendance ?",
       "source_requise": "GSC",
       "methode": "relevé 12 mois glissants, tendance et saisonnalité",
       "critere_verdict": "aucun — baseline et KPI cible",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
-      "id": 64,
+      "id": 69,
       "branche": "Mesure",
-      "slug_branche": "13-mesure",
+      "slug_branche": "14-mesure",
       "noeud": "Clics",
       "slug_noeud": "02-clics",
-      "chemin": "13-mesure/02-clics",
+      "chemin": "14-mesure/02-clics",
       "volet": "TRANSVERSAL",
       "statut": "EX",
       "question_audit": "Quel volume de clics organiques et quelle tendance ?",
       "source_requise": "GSC",
       "methode": "relevé 12 mois glissants",
       "critere_verdict": "aucun — baseline et KPI cible",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
-      "id": 65,
+      "id": 70,
       "branche": "Mesure",
-      "slug_branche": "13-mesure",
+      "slug_branche": "14-mesure",
       "noeud": "Positions",
       "slug_noeud": "03-positions",
-      "chemin": "13-mesure/03-positions",
+      "chemin": "14-mesure/03-positions",
       "volet": "TRANSVERSAL",
       "statut": "EX",
       "question_audit": "Quelles positions moyennes sur les requêtes cibles ?",
       "source_requise": "GSC",
       "methode": "position moyenne par requête cible, avec le volume d'impressions associé",
       "critere_verdict": "aucun — baseline et KPI cible",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
-      "id": 66,
+      "id": 71,
       "branche": "Mesure",
-      "slug_branche": "13-mesure",
+      "slug_branche": "14-mesure",
       "noeud": "Leads",
       "slug_noeud": "04-leads",
-      "chemin": "13-mesure/04-leads",
+      "chemin": "14-mesure/04-leads",
       "volet": "TRANSVERSAL",
       "statut": "NM",
       "question_audit": "Combien de leads le canal organique génère-t-il ?",
       "source_requise": "GA (conversions) + CRM",
       "methode": "relevé des conversions attribuées à l'organique, avec le modèle d'attribution déclaré",
       "critere_verdict": "aucun — baseline et KPI cible",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
-      "id": 67,
+      "id": 72,
       "branche": "Mesure",
-      "slug_branche": "13-mesure",
+      "slug_branche": "14-mesure",
       "noeud": "Revenu Par Page",
       "slug_noeud": "05-revenu-par-page",
-      "chemin": "13-mesure/05-revenu-par-page",
+      "chemin": "14-mesure/05-revenu-par-page",
       "volet": "TRANSVERSAL",
       "statut": "NM",
       "question_audit": "Quelles pages génèrent du revenu, et combien ?",
       "source_requise": "GA e-commerce ou CRM rapproché des pages d'entrée",
       "methode": "croiser pages d'entrée organiques et revenu attribué",
       "critere_verdict": "aucun — sert à pondérer le gain des actions en €",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "e-commerce",
+        "media-affiliation"
+      ]
     },
     {
-      "id": 68,
+      "id": 73,
       "branche": "Optimisation",
-      "slug_branche": "14-optimisation",
+      "slug_branche": "15-optimisation",
       "noeud": "Contenus À Renforcer",
       "slug_noeud": "01-contenus-a-renforcer",
-      "chemin": "14-optimisation/01-contenus-a-renforcer",
+      "chemin": "15-optimisation/01-contenus-a-renforcer",
       "volet": "TRANSVERSAL",
       "statut": "EX",
       "question_audit": "Quelles pages sont proches du seuil de performance ?",
       "source_requise": "GSC (positions 5-20 à fort volume d'impressions)",
       "methode": "trier par (impressions × gain de CTR attendu si passage en top 3) ; croiser avec la complétude du contenu",
       "critere_verdict": "liste des 10 pages au plus fort potentiel de gain à effort faible",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
-      "id": 69,
+      "id": 74,
       "branche": "Optimisation",
-      "slug_branche": "14-optimisation",
+      "slug_branche": "15-optimisation",
       "noeud": "Pages À Fusionner",
       "slug_noeud": "02-pages-a-fusionner",
-      "chemin": "14-optimisation/02-pages-a-fusionner",
+      "chemin": "15-optimisation/02-pages-a-fusionner",
       "volet": "TRANSVERSAL",
       "statut": "SD",
       "question_audit": "Quelles pages se cannibalisent ?",
       "source_requise": "crawl (similarité) ; GSC pour confirmation",
       "methode": "détecter les pages de sujet proche visant la même intention ; confirmer par GSC (même requête servie par deux URLs)",
       "critere_verdict": "0 paire de pages en cannibalisation confirmée",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
-      "id": 70,
+      "id": 75,
       "branche": "Optimisation",
-      "slug_branche": "14-optimisation",
+      "slug_branche": "15-optimisation",
       "noeud": "Pages À Supprimer",
       "slug_noeud": "03-pages-a-supprimer",
-      "chemin": "14-optimisation/03-pages-a-supprimer",
+      "chemin": "15-optimisation/03-pages-a-supprimer",
       "volet": "TRANSVERSAL",
       "statut": "EX",
       "question_audit": "Quelles pages n'apportent rien (0 trafic, 0 lien, 0 conversion) ?",
       "source_requise": "GSC + GA ; à défaut signaux structurels",
       "methode": "croiser absence de clics sur 12 mois, absence de liens entrants et absence de conversion",
       "critere_verdict": "candidates listées avec, pour chacune, l'arbitrage suppression / fusion / amélioration — **jamais de suppression recommandée sur la seule absence de trafic**",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
-      "id": 71,
+      "id": 76,
       "branche": "Optimisation",
-      "slug_branche": "14-optimisation",
+      "slug_branche": "15-optimisation",
       "noeud": "Tests SEO",
       "slug_noeud": "04-tests-seo",
-      "chemin": "14-optimisation/04-tests-seo",
+      "chemin": "15-optimisation/04-tests-seo",
       "volet": "TRANSVERSAL",
       "statut": "SD",
       "question_audit": "Le site a-t-il la capacité de tester une hypothèse SEO ?",
       "source_requise": "déclaratif + observation",
       "methode": "vérifier l'existence de groupes de pages comparables et d'un moyen de mesurer l'écart",
       "critere_verdict": "capacité présente ou absente, avec le prérequis manquant nommé",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
-      "id": 72,
+      "id": 77,
       "branche": "Optimisation",
-      "slug_branche": "14-optimisation",
+      "slug_branche": "15-optimisation",
       "noeud": "Boucles D'Amélioration",
       "slug_noeud": "05-boucles-d-amelioration",
-      "chemin": "14-optimisation/05-boucles-d-amelioration",
+      "chemin": "15-optimisation/05-boucles-d-amelioration",
       "volet": "TRANSVERSAL",
       "statut": "SD",
       "question_audit": "Existe-t-il un cycle mesurer → agir → remesurer documenté ?",
       "source_requise": "déclaratif + historique des runs",
       "methode": "vérifier l'existence d'un état de référence antérieur et d'une trace des actions passées",
       "critere_verdict": "**c'est le nœud qu'instrumente le couple `snapshot` / `diff` de ce skill** : au premier run, le constat est « boucle absente, snapshot initial posé »",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
-      "id": 73,
+      "id": 78,
       "branche": "Croissance",
-      "slug_branche": "15-croissance",
+      "slug_branche": "16-croissance",
       "noeud": "Nouveaux Silos",
       "slug_noeud": "01-nouveaux-silos",
-      "chemin": "15-croissance/01-nouveaux-silos",
+      "chemin": "16-croissance/01-nouveaux-silos",
       "volet": "STRATEGIE",
       "statut": "SD",
       "question_audit": "Quels territoires thématiques adjacents sont accessibles ?",
       "source_requise": "nœuds 1, 4, 5, 20 + cadrage",
       "methode": "identifier les thèmes adjacents où la SERP est attaquable et où le site a une légitimité démontrable",
       "critere_verdict": "≥ 2 silos candidats, chacun avec sa légitimité et sa SERP qualifiée",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
-      "id": 74,
+      "id": 79,
       "branche": "Croissance",
-      "slug_branche": "15-croissance",
+      "slug_branche": "16-croissance",
       "noeud": "Nouveaux Sites",
       "slug_noeud": "02-nouveaux-sites",
-      "chemin": "15-croissance/02-nouveaux-sites",
+      "chemin": "16-croissance/02-nouveaux-sites",
       "volet": "STRATEGIE",
       "statut": "SD",
       "question_audit": "Un site distinct est-il justifié, ou est-ce une fuite devant la difficulté ?",
       "source_requise": "cadrage + nœuds 1 et 11",
       "methode": "poser la question à l'envers : qu'est-ce qui empêche de le faire sur le domaine existant ?",
       "critere_verdict": "recommandé **uniquement** si le domaine existant est structurellement inadapté (marque, langue, modèle) — jamais pour contourner un problème d'autorité",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
-      "id": 75,
+      "id": 80,
       "branche": "Croissance",
-      "slug_branche": "15-croissance",
+      "slug_branche": "16-croissance",
       "noeud": "Nouveaux Médias",
       "slug_noeud": "03-nouveaux-medias",
-      "chemin": "15-croissance/03-nouveaux-medias",
+      "chemin": "16-croissance/03-nouveaux-medias",
       "volet": "STRATEGIE",
       "statut": "SD",
       "question_audit": "D'autres surfaces méritent-elles d'être investies (vidéo, podcast, place de marché) ?",
       "source_requise": "cadrage + SERP",
       "methode": "vérifier si les SERP cibles affichent des formats que le site ne produit pas",
       "critere_verdict": "investissement justifié seulement si la SERP cible affiche déjà ce format",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
-      "id": 76,
+      "id": 81,
       "branche": "Croissance",
-      "slug_branche": "15-croissance",
+      "slug_branche": "16-croissance",
       "noeud": "Partenariats",
       "slug_noeud": "04-partenariats",
-      "chemin": "15-croissance/04-partenariats",
+      "chemin": "16-croissance/04-partenariats",
       "volet": "STRATEGIE",
       "statut": "SD",
       "question_audit": "Quels partenaires peuvent apporter autorité et audience ?",
       "source_requise": "nœuds 41, 42, 51 + cadrage",
       "methode": "identifier les acteurs déjà en relation ou déjà citants, et les opportunités de réciprocité",
       "critere_verdict": "≥ 5 partenaires nominatifs, avec l'angle d'approche",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
-      "id": 77,
+      "id": 82,
       "branche": "Croissance",
-      "slug_branche": "15-croissance",
+      "slug_branche": "16-croissance",
       "noeud": "Actifs Qui Composent",
       "slug_noeud": "05-actifs-qui-composent",
-      "chemin": "15-croissance/05-actifs-qui-composent",
+      "chemin": "16-croissance/05-actifs-qui-composent",
       "volet": "STRATEGIE",
       "statut": "SD",
       "question_audit": "Quels actifs produisent un rendement cumulatif plutôt que ponctuel ?",
       "source_requise": "ensemble de l'audit",
       "methode": "distinguer les actions à effet unique (correction technique) des actifs à effet cumulé (pilier qui capte la traîne, outil gratuit qui attire des liens, données propriétaires)",
       "critere_verdict": "≥ 3 actifs cumulatifs identifiés dans la trajectoire",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
-      "id": 78,
+      "id": 83,
       "branche": "Objectif",
-      "slug_branche": "16-objectif",
+      "slug_branche": "17-objectif",
       "noeud": "Trafic Qualifié",
       "slug_noeud": "01-trafic-qualifie",
-      "chemin": "16-objectif/01-trafic-qualifie",
+      "chemin": "17-objectif/01-trafic-qualifie",
       "volet": "CADRAGE",
       "statut": "CA",
       "question_audit": "Quelle cible de trafic à intention à 12 et 24 mois ?",
       "source_requise": "cadrage client + baseline",
       "methode": "dériver de la baseline et du potentiel des requêtes cibles ; calcul visible, fourchette obligatoire",
       "critere_verdict": "cible chiffrée, étiquetée `[T4]`, avec sa sensibilité",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
-      "id": 79,
+      "id": 84,
       "branche": "Objectif",
-      "slug_branche": "16-objectif",
+      "slug_branche": "17-objectif",
       "noeud": "Leads Entrants",
       "slug_noeud": "02-leads-entrants",
-      "chemin": "16-objectif/02-leads-entrants",
+      "chemin": "17-objectif/02-leads-entrants",
       "volet": "CADRAGE",
       "statut": "CA",
       "question_audit": "Quelle cible de leads organiques ?",
       "source_requise": "cadrage + nœuds 66 et 46",
       "methode": "appliquer le taux de conversion observé au trafic cible ; **si le taux n'est pas mesuré, la cible est non calculable et doit être déclarée telle**",
       "critere_verdict": "cible chiffrée ou déclaration explicite de non-calculabilité",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
-      "id": 80,
+      "id": 85,
       "branche": "Objectif",
-      "slug_branche": "16-objectif",
+      "slug_branche": "17-objectif",
       "noeud": "Ventes",
       "slug_noeud": "03-ventes",
-      "chemin": "16-objectif/03-ventes",
+      "chemin": "17-objectif/03-ventes",
       "volet": "CADRAGE",
       "statut": "CA",
       "question_audit": "Quelle cible de chiffre d'affaires organique ?",
       "source_requise": "cadrage + nœuds 8 et 67",
       "methode": "appliquer la valeur client aux leads cibles",
       "critere_verdict": "cible chiffrée ou déclaration explicite de non-calculabilité",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "e-commerce"
+      ]
     },
     {
-      "id": 81,
+      "id": 86,
       "branche": "Objectif",
-      "slug_branche": "16-objectif",
+      "slug_branche": "17-objectif",
       "noeud": "Autorité",
       "slug_noeud": "04-autorite",
-      "chemin": "16-objectif/04-autorite",
+      "chemin": "17-objectif/04-autorite",
       "volet": "CADRAGE",
       "statut": "RV",
       "question_audit": "*(doublon du schéma)*",
       "source_requise": "—",
       "methode": "**renvoi vers la branche `Autorité`, nœuds 38-42**",
       "critere_verdict": "ne pas auditer ici",
-      "doublon_de": "08-autorite"
+      "doublon_de": "08-autorite",
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     },
     {
-      "id": 82,
+      "id": 87,
       "branche": "Objectif",
-      "slug_branche": "16-objectif",
+      "slug_branche": "17-objectif",
       "noeud": "Machine SEO",
       "slug_noeud": "05-machine-seo",
-      "chemin": "16-objectif/05-machine-seo",
+      "chemin": "17-objectif/05-machine-seo",
       "volet": "CADRAGE",
       "statut": "SD",
       "question_audit": "Le dispositif est-il autonome et répétable, ou dépend-il d'une impulsion externe ?",
       "source_requise": "synthèse des branches `Automatisation`, `Mesure`, `Optimisation`",
       "methode": "scorer la maturité sur 5 : 1 = actions ponctuelles sans mesure · 3 = mesure en place, actions réactives · 5 = détection, action et remesure outillées et cadencées",
       "critere_verdict": "score de maturité 1-5, justifié par les nœuds 58-62, 63-67 et 68-72",
-      "doublon_de": null
+      "doublon_de": null,
+      "modeles": [
+        "b2b-lead-gen",
+        "e-commerce",
+        "local",
+        "media-affiliation",
+        "saas"
+      ]
     }
   ]
 }

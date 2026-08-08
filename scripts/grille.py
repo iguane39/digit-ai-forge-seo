@@ -1,6 +1,6 @@
 """Lecture de la source de verite de forge-seo.
 
-SOURCE DE VERITE : .claude/skills/seo-audit-strategie/references/grille-82-noeuds.md
+SOURCE DE VERITE : .claude/skills/seo-audit-strategie/references/grille-noeuds.md
 
 Le fichier input/Schema SEO.MD n'est JAMAIS parse par aucun script de ce projet.
 Motif verifie : son bloc `Objectif` (lignes 219-229) a une indentation cassee -- ses
@@ -38,11 +38,11 @@ GRILLE = (
     / "skills"
     / "seo-audit-strategie"
     / "references"
-    / "grille-82-noeuds.md"
+    / "grille-noeuds.md"
 )
 
-NB_BRANCHES = 16
-NB_NOEUDS = 82
+NB_BRANCHES = 17
+NB_NOEUDS = 87
 
 STATUTS = {"SD", "EX", "PY", "NM", "RV", "CA"}
 
@@ -57,6 +57,10 @@ VOLETS = {
 }
 
 RE_SECTION = re.compile(r"^##\s+(\d{1,2})\.\s+(.+?)\s*(?:—|--).*$")
+RE_PORTEE = re.compile(r"^\|\s*\**(\d{1,2})(?:-(\d{1,2}))?\**[^|]*\|\s*([^|]+?)\s*\|")
+
+MODELES = {"b2b-lead-gen", "e-commerce", "media-affiliation", "local", "saas"}
+TOUS = sorted(MODELES)
 RE_LIGNE = re.compile(r"^\|\s*(\d{1,2})\s*\|")
 RE_CODE = re.compile(r"`([A-Z]{2})`")
 
@@ -114,7 +118,7 @@ def _volet(cellule: str) -> str:
 def lire(chemin: Path | None = None) -> dict:
     """Retourne {'branches': [...], 'noeuds': [...]} depuis la grille.
 
-    Echoue si les comptes ne sont pas exactement 16 branches et 82 noeuds :
+    Echoue si les comptes ne sont pas exactement 17 branches et 87 noeuds :
     c'est le controle qui aurait attrape le defaut du fichier .MD d'origine.
     """
     chemin = chemin or GRILLE
@@ -172,6 +176,7 @@ def lire(chemin: Path | None = None) -> dict:
         courante["noeuds"].append(noeud)
         noeuds.append(noeud)
 
+    _appliquer_portee(texte, noeuds)
     _resoudre_doublons(branches, noeuds)
     _controler(branches, noeuds)
 
@@ -179,6 +184,35 @@ def lire(chemin: Path | None = None) -> dict:
         b["volet_dominant"] = _volet_dominant(b["noeuds"])
 
     return {"branches": branches, "noeuds": noeuds}
+
+
+def _appliquer_portee(texte: str, noeuds: list[dict]) -> None:
+    """Lit la table « Portee par modele d'acquisition ».
+
+    Par defaut un noeud vaut pour tous les modeles ; seules les exceptions sont
+    listees. Restreindre est plus risque qu'elargir -- un noeud retire a tort
+    disparait silencieusement de l'audit --, d'ou le defaut permissif.
+    """
+    for n in noeuds:
+        n["modeles"] = list(TOUS)
+
+    if "## Portée par modèle" not in texte:
+        return
+    bloc = texte.split("## Portée par modèle", 1)[1].split("\n---", 1)[0]
+
+    par_id = {n["id"]: n for n in noeuds}
+    for ligne in bloc.split("\n"):
+        m = RE_PORTEE.match(ligne)
+        if not m:
+            continue
+        debut = int(m.group(1))
+        fin = int(m.group(2)) if m.group(2) else debut
+        mods = sorted(set(re.findall(r"`([a-z0-9-]+)`", m.group(3))) & MODELES)
+        if not mods:
+            continue
+        for i in range(debut, fin + 1):
+            if i in par_id:
+                par_id[i]["modeles"] = mods
 
 
 def _resoudre_doublons(branches: list[dict], noeuds: list[dict]) -> None:
@@ -234,3 +268,7 @@ if __name__ == "__main__":
     for n in donnees["noeuds"]:
         if n["doublon_de"]:
             print(f"renvoi   : {n['id']:>2} {n['chemin']} -> {n['doublon_de']}")
+    restreints = [n for n in donnees["noeuds"] if n["modeles"] != TOUS]
+    print(f"portee restreinte : {len(restreints)} noeud(s)")
+    for n in restreints:
+        print(f"  {n['id']:>2} {n['noeud']:<26} {','.join(n['modeles'])}")

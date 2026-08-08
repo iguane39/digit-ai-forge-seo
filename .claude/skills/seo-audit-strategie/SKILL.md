@@ -1,11 +1,11 @@
 ---
 name: seo-audit-strategie
-description: Audit du SEO actuel et construction de la stratégie SEO future d'un site, sur une grille de 82 nœuds à deux volets (état constaté / trajectoire 12-24 mois). Produit points forts et faibles avec preuves étiquetées par niveau de preuve, actions chiffrées en gain/effort/confiance, priorisation par filière, dispatch en 4 quadrants (IA ou manuel × gratuit ou payant), roadmap trimestrielle et snapshot horodaté pour le diff entre runs. Déclencher dès que l'utilisateur demande un audit SEO, une analyse SEO, un diagnostic SEO, une stratégie ou roadmap SEO, un plan SEO 12 mois, veut savoir pourquoi son site ne ressort pas sur Google, veut cartographier ses opportunités de visibilité organique, ou demande sa présence dans les réponses IA / GEO / AI Overviews. Ne pas déclencher pour rédiger un contenu isolé, répondre à une question SEO factuelle ponctuelle, ni auditer la performance web pure sans enjeu de visibilité.
+description: Audit du SEO actuel et construction de la stratégie SEO future d'un site, sur une grille de 87 nœuds à deux volets (état constaté / trajectoire 12-24 mois). Produit points forts et faibles avec preuves étiquetées par niveau de preuve, actions chiffrées en gain/effort/confiance, priorisation par filière, dispatch en 4 quadrants (IA ou manuel × gratuit ou payant), roadmap trimestrielle et snapshot horodaté pour le diff entre runs. Déclencher dès que l'utilisateur demande un audit SEO, une analyse SEO, un diagnostic SEO, une stratégie ou roadmap SEO, un plan SEO 12 mois, veut savoir pourquoi son site ne ressort pas sur Google, veut cartographier ses opportunités de visibilité organique, ou demande sa présence dans les réponses IA / GEO / AI Overviews. Ne pas déclencher pour rédiger un contenu isolé, répondre à une question SEO factuelle ponctuelle, ni auditer la performance web pure sans enjeu de visibilité.
 ---
 
 # Audit & stratégie SEO
 
-Grille de 82 nœuds, deux volets, preuves étiquetées, actions dispatchées par filière d'exécution.
+Grille de 87 nœuds, deux volets, preuves étiquetées, actions dispatchées par filière d'exécution.
 
 ## Ce que ce skill produit
 
@@ -67,12 +67,12 @@ Si le site rend son contenu en JavaScript côté client, le crawl est partiellem
 
 ### R2 — Volet ÉTAT
 
-Applique `references/grille-82-noeuds.md`, nœuds de volet `ÉTAT` et `TRANSVERSAL`.
+Applique `references/grille-noeuds.md`, nœuds de volet `ÉTAT` et `TRANSVERSAL`.
 
 - **Points forts** — 10 maximum, chacun avec sa preuve étiquetée.
 - **Points faibles** — 15 maximum, triés par impact décroissant, chacun avec sa preuve **et son mécanisme** : pourquoi cela coûte du trafic ou des leads. « Ce n'est pas optimal » n'est pas un mécanisme.
 - **Baseline mesurée** — état de référence chiffré au jour du run, uniquement `[T1]` et `[T2]`. C'est ce que le prochain run comparera.
-- **Table de couverture 82/82** — une ligne par nœud : statut + verdict ou motif de non-mesure. Aucun nœud absent.
+- **Table de couverture 87/87** — une ligne par nœud : statut + verdict ou motif de non-mesure. Aucun nœud absent.
 
 ### R3 — Volet STRATÉGIE
 
@@ -129,7 +129,7 @@ Structure du rapport : `assets/gabarit-rapport.md`. Avant de livrer, passe le ra
 - [ ] R0 produit avant toute analyse : périmètre, plafond, échantillonnage, nœuds non mesurables comptés
 - [ ] **Zéro chiffre sans étiquette** `[T1]` / `[T2]` / `[T3]` / `[T4]`
 - [ ] Zéro position, impression, clic ou CTR SERP avancé sans export GSC
-- [ ] Table de couverture **82/82** présente, aucun nœud absent
+- [ ] Table de couverture **87/87** présente, aucun nœud absent
 - [ ] ÉTAT : ≤ 10 forts, ≤ 15 faibles, chacun avec preuve **et** mécanisme
 - [ ] Baseline isolée, composée uniquement de `[T1]` et `[T2]`
 - [ ] STRATÉGIE : cible 12/24 mois avec calcul visible, fourchette, sensibilité
@@ -156,7 +156,7 @@ Structure du rapport : `assets/gabarit-rapport.md`. Avant de livrer, passe le ra
 
 | Fichier | À charger quand |
 |---|---|
-| `references/grille-82-noeuds.md` | R2 — toujours |
+| `references/grille-noeuds.md` | R2 — toujours |
 | `references/sources-donnees.md` | R0 — pour déclarer les impacts d'absence de source |
 | `references/scoring.md` | R4 — barèmes et formule |
 | `references/strategie-future.md` | R3 — méthode du volet futur |

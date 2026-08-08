@@ -6,6 +6,7 @@ volet: ETAT
 statut_instrumentation: NM
 source_requise: "logs serveur ou CDN"
 doublon_de: null
+modeles: b2b-lead-gen,e-commerce,local,media-affiliation,saas
 # --- rempli pendant la mission ---
 etat: a-faire
 motif_hors_perimetre: null

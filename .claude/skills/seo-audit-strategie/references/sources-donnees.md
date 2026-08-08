@@ -4,7 +4,7 @@
 
 ## Principe
 
-Le skill tourne **sans aucun export**. Dans ce mode, 48 nœuds sur 82 restent instrumentés et 24 basculent en non mesurable. Ce n'est pas un échec : c'est un périmètre, et il doit être annoncé en tête de livrable, pas découvert en annexe.
+Le skill tourne **sans aucun export**. Dans ce mode, 53 nœuds sur 87 restent instrumentés et 24 basculent en non mesurable (comptes pour une étude `local`, qui mobilise toute la grille ; sur un autre modèle, les nœuds hors portée s'ajoutent). Ce n'est pas un échec : c'est un périmètre, et il doit être annoncé en tête de livrable, pas découvert en annexe.
 
 Ce qui est interdit : combler un trou de source par une valeur plausible. Voir garde-fous 1 et 2 du `SKILL.md`.
 
@@ -24,12 +24,12 @@ Ce qui est interdit : combler un trou de source par une valeur plausible. Voir g
 
 | Source | Statut | Nœuds servis | Si absente |
 |---|---|---|---|
-| **Crawl + HTTP + HTML** | disponible | 1, 2, 4, 11-16, 18, 20-27, 30-33, 42, 49, 50, 53, 56, 61, 69, 70, 72 | — |
-| **Recherche web** | disponible | 2, 4, 5, 18, 20, 23, 41, 47, 51, 54, 55, 75 | — |
-| **Déclaratif client** | à demander | 58-62, 71 | nœud non renseigné, à marquer `à collecter` (pas `non mesurable`) |
-| **Export GSC** | à demander | 5, 17, 19, 34-37, 39, 43, 48, 52, 63, 64, 65, 68, 69, 70 | **16 nœuds** en non mesurable |
-| **Export GA** | à demander | 10, 44, 45, 46, 66, 70 | **5 nœuds** en non mesurable |
-| **CRM / e-commerce** | à demander | 7, 8, 10, 66, 67 | **4 nœuds** en non mesurable |
+| **Crawl + HTTP + HTML** | disponible | 1, 2, 4, 11-16, 18, 20-27, 30-33, 42, 49, 50, 53, 56, 59, 62, 66, 74, 75, 77 | — |
+| **Recherche web** | disponible | 2, 4, 5, 18, 20, 23, 41, 47, 51, 54, 55, 58, 59, 60, 61, 80 | — |
+| **Déclaratif client** | à demander | 63-67, 76 | nœud non renseigné, à marquer `à collecter` (pas `non mesurable`) |
+| **Export GSC** | à demander | 5, 17, 19, 34-37, 39, 43, 48, 52, 68, 69, 70, 73, 74, 75 | **16 nœuds** en non mesurable |
+| **Export GA** | à demander | 10, 44, 45, 46, 71, 75 | **5 nœuds** en non mesurable |
+| **CRM / e-commerce** | à demander | 7, 8, 10, 71, 72 | **4 nœuds** en non mesurable |
 | **Index de backlinks** | payant | 9, 38, 40, 42, 55 | dégradation partielle documentée, jamais un chiffre inventé |
 | **Source de volume** | payant | 3, 6 | volume remplacé par les impressions GSC comme **plancher observé**, ou déclaré inconnu |
 | **Logs serveur** | rarement obtenu | 29 | 1 nœud en non mesurable — budget de crawl invisible |
@@ -50,7 +50,7 @@ Formulations à reprendre telles quelles dans le livrable.
 
 > Le comportement des visiteurs et l'origine du trafic hors recherche ne sont pas mesurables : trafic référent, trafic social, comportement post-clic, leads attribués à l'organique. La vitesse de monétisation reste inconnue.
 >
-> Conséquence : aucun gain ne peut être exprimé en leads. Les gains restent exprimés en trafic qualifié, et la conversion en leads est signalée comme non calculable (nœud 79).
+> Conséquence : aucun gain ne peut être exprimé en leads. Les gains restent exprimés en trafic qualifié, et la conversion en leads est signalée comme non calculable (nœud 84).
 
 ### Sans données CRM ou e-commerce
 

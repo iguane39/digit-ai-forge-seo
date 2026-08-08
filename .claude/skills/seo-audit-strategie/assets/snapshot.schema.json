@@ -4,61 +4,137 @@
   "title": "Snapshot SEO — état mesuré d'un site à une date",
   "description": "État persistant produit à chaque run. Sert de base au diff entre runs : c'est ce qui transforme le skill en instrument de pilotage plutôt qu'en generateur de rapports. Toute valeur chiffree porte son niveau de preuve.",
   "type": "object",
-  "required": ["schema_version", "run", "perimetre", "sources", "noeuds", "actions"],
+  "required": [
+    "schema_version",
+    "run",
+    "perimetre",
+    "sources",
+    "noeuds",
+    "actions"
+  ],
   "additionalProperties": false,
   "properties": {
     "schema_version": {
-      "const": "1.0.0"
+      "const": "1.1.0"
     },
     "run": {
       "type": "object",
-      "required": ["date", "domaine", "modele_acquisition", "audience_livrable"],
+      "required": [
+        "date",
+        "domaine",
+        "modele_acquisition",
+        "audience_livrable"
+      ],
       "additionalProperties": false,
       "properties": {
-        "date": { "type": "string", "format": "date", "description": "Date du run, AAAA-MM-JJ" },
-        "domaine": { "type": "string", "description": "Domaine audite, sans protocole" },
-        "url": { "type": "string", "format": "uri" },
-        "marque": { "type": "string" },
+        "date": {
+          "type": "string",
+          "format": "date",
+          "description": "Date du run, AAAA-MM-JJ"
+        },
+        "domaine": {
+          "type": "string",
+          "description": "Domaine audite, sans protocole"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "marque": {
+          "type": "string"
+        },
         "modele_acquisition": {
-          "enum": ["b2b-lead-gen", "e-commerce", "media-affiliation", "local", "saas", "autre"]
+          "enum": [
+            "b2b-lead-gen",
+            "e-commerce",
+            "media-affiliation",
+            "local",
+            "saas",
+            "autre"
+          ]
         },
         "marche": {
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "pays": { "type": "string" },
-            "langue": { "type": "string" }
+            "pays": {
+              "type": "string"
+            },
+            "langue": {
+              "type": "string"
+            }
           }
         },
-        "audience_livrable": { "enum": ["dirigeant", "marketing", "technique"] },
-        "concurrents": { "type": "array", "items": { "type": "string" } },
+        "audience_livrable": {
+          "enum": [
+            "dirigeant",
+            "marketing",
+            "technique"
+          ]
+        },
+        "concurrents": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "snapshot_precedent": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "description": "Nom du fichier snapshot anterieur pour ce domaine, ou null au premier run"
         }
       }
     },
     "perimetre": {
       "type": "object",
-      "required": ["pages_decouvertes", "pages_echantillonnees"],
+      "required": [
+        "pages_decouvertes",
+        "pages_echantillonnees"
+      ],
       "additionalProperties": false,
       "properties": {
-        "pages_decouvertes": { "type": "integer", "minimum": 0 },
-        "pages_echantillonnees": { "type": "integer", "minimum": 0 },
+        "pages_decouvertes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "pages_echantillonnees": {
+          "type": "integer",
+          "minimum": 0
+        },
         "methode_echantillonnage": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "description": "Obligatoire des que pages_decouvertes > 200 (garde-fou 5)"
         },
-        "rendu_js_detecte": { "type": "boolean" },
-        "gabarits_affectes_rendu_js": { "type": "array", "items": { "type": "string" } },
+        "rendu_js_detecte": {
+          "type": "boolean"
+        },
+        "gabarits_affectes_rendu_js": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "plafond_run": {
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "fetches_max": { "type": "integer" },
-            "fetches_consommes": { "type": "integer" },
-            "recherches_max": { "type": "integer" },
-            "recherches_consommees": { "type": "integer" }
+            "fetches_max": {
+              "type": "integer"
+            },
+            "fetches_consommes": {
+              "type": "integer"
+            },
+            "recherches_max": {
+              "type": "integer"
+            },
+            "recherches_consommees": {
+              "type": "integer"
+            }
           }
         }
       }
@@ -68,12 +144,24 @@
       "description": "Disponibilite reelle des sources a ce run. Conditionne l'etiquette T2 et le compte de noeuds mesurables.",
       "additionalProperties": false,
       "properties": {
-        "gsc": { "$ref": "#/$defs/source" },
-        "ga": { "$ref": "#/$defs/source" },
-        "crm": { "$ref": "#/$defs/source" },
-        "logs_serveur": { "$ref": "#/$defs/source" },
-        "index_backlinks": { "$ref": "#/$defs/source" },
-        "source_volume": { "$ref": "#/$defs/source" }
+        "gsc": {
+          "$ref": "#/$defs/source"
+        },
+        "ga": {
+          "$ref": "#/$defs/source"
+        },
+        "crm": {
+          "$ref": "#/$defs/source"
+        },
+        "logs_serveur": {
+          "$ref": "#/$defs/source"
+        },
+        "index_backlinks": {
+          "$ref": "#/$defs/source"
+        },
+        "source_volume": {
+          "$ref": "#/$defs/source"
+        }
       }
     },
     "baseline": {
@@ -82,16 +170,117 @@
       "additionalProperties": false,
       "properties": {
         "periode": {
-          "type": ["object", "null"],
+          "type": [
+            "object",
+            "null"
+          ],
           "additionalProperties": false,
           "properties": {
-            "debut": { "type": "string", "format": "date" },
-            "fin": { "type": "string", "format": "date" }
+            "debut": {
+              "type": "string",
+              "format": "date"
+            },
+            "fin": {
+              "type": "string",
+              "format": "date"
+            }
           }
         },
         "metriques": {
           "type": "array",
-          "items": { "$ref": "#/$defs/metrique" }
+          "items": {
+            "$ref": "#/$defs/metrique"
+          }
+        }
+      }
+    },
+    "pages": {
+      "type": "array",
+      "description": "Inventaire par URL. C'est le rapport par page que livre tout outil du marche et que la grille, indexee par noeud SEO, ne pouvait pas produire. Alimente a l'etape 1 (collecte). Echantillonnage stratifie au-dela de 200 URLs, methode declaree dans perimetre.methode_echantillonnage. Absent = inventaire non collecte : le rapport l'affiche en absence declaree, jamais reconstitue par deduction.",
+      "items": {
+        "type": "object",
+        "required": [
+          "url",
+          "code_http",
+          "preuve"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "URL absolue telle que crawlee"
+          },
+          "type_gabarit": {
+            "type": "string",
+            "description": "accueil, categorie, produit, article, pilier..."
+          },
+          "profondeur_clic": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0,
+            "description": "distance minimale depuis l'accueil"
+          },
+          "code_http": {
+            "type": "integer"
+          },
+          "title": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "h1": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "canonical": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "indexable": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "null si non determinable sans export GSC"
+          },
+          "liens_internes_entrants": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "hors navigation et pied de page"
+          },
+          "poids_ko": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "noeuds_concernes": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 82
+            },
+            "description": "noeuds de la grille que cette page documente"
+          },
+          "preuve": {
+            "enum": [
+              "T1",
+              "T2",
+              "T3",
+              "T4"
+            ],
+            "description": "T1 pour un crawl direct. Une ligne d'inventaire deduite n'est pas un inventaire : ne pas produire de T4 ici."
+          }
         }
       }
     },
@@ -102,31 +291,72 @@
       "maxItems": 82,
       "items": {
         "type": "object",
-        "required": ["id", "branche", "noeud", "volet", "statut"],
+        "required": [
+          "id",
+          "branche",
+          "noeud",
+          "volet",
+          "statut"
+        ],
         "additionalProperties": false,
         "properties": {
-          "id": { "type": "integer", "minimum": 1, "maximum": 82 },
-          "branche": { "type": "string" },
-          "noeud": { "type": "string" },
-          "volet": { "enum": ["ETAT", "STRATEGIE", "TRANSVERSAL", "CADRAGE"] },
+          "id": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 82
+          },
+          "branche": {
+            "type": "string"
+          },
+          "noeud": {
+            "type": "string"
+          },
+          "volet": {
+            "enum": [
+              "ETAT",
+              "STRATEGIE",
+              "TRANSVERSAL",
+              "CADRAGE"
+            ]
+          },
           "statut": {
-            "enum": ["SD", "EX", "PY", "NM", "RV", "CA"],
+            "enum": [
+              "SD",
+              "EX",
+              "PY",
+              "NM",
+              "RV",
+              "CA"
+            ],
             "description": "SD sans dependance · EX si export · PY si outil payant · NM non mesurable · RV renvoi doublon · CA cadrage"
           },
           "verdict": {
-            "enum": ["conforme", "partiel", "non-conforme", "non-mesure", "sans-objet"]
+            "enum": [
+              "conforme",
+              "partiel",
+              "non-conforme",
+              "non-mesure",
+              "sans-objet"
+            ]
           },
           "motif_non_mesure": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Obligatoire des que statut = NM ou verdict = non-mesure"
           },
           "mesures": {
             "type": "array",
-            "items": { "$ref": "#/$defs/metrique" }
+            "items": {
+              "$ref": "#/$defs/metrique"
+            }
           },
           "actions_liees": {
             "type": "array",
-            "items": { "type": "string" },
+            "items": {
+              "type": "string"
+            },
             "description": "Identifiants des actions repondant a ce noeud"
           }
         }
@@ -137,22 +367,53 @@
       "description": "Projections. Toujours T4, toujours bornees, calcul visible.",
       "additionalProperties": false,
       "properties": {
-        "calculable": { "type": "boolean" },
-        "motif_non_calculable": { "type": ["string", "null"] },
+        "calculable": {
+          "type": "boolean"
+        },
+        "motif_non_calculable": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
         "horizons": {
           "type": "array",
           "items": {
             "type": "object",
-            "required": ["echeance_mois", "indicateur", "borne_basse", "borne_haute", "calcul"],
+            "required": [
+              "echeance_mois",
+              "indicateur",
+              "borne_basse",
+              "borne_haute",
+              "calcul"
+            ],
             "additionalProperties": false,
             "properties": {
-              "echeance_mois": { "enum": [12, 24] },
-              "indicateur": { "type": "string" },
-              "unite": { "type": "string" },
-              "borne_basse": { "type": "number" },
-              "borne_haute": { "type": "number" },
-              "calcul": { "type": "string", "description": "Formule et valeurs d'entree, en clair" },
-              "preuve": { "const": "T4" }
+              "echeance_mois": {
+                "enum": [
+                  12,
+                  24
+                ]
+              },
+              "indicateur": {
+                "type": "string"
+              },
+              "unite": {
+                "type": "string"
+              },
+              "borne_basse": {
+                "type": "number"
+              },
+              "borne_haute": {
+                "type": "number"
+              },
+              "calcul": {
+                "type": "string",
+                "description": "Formule et valeurs d'entree, en clair"
+              },
+              "preuve": {
+                "const": "T4"
+              }
             }
           }
         },
@@ -161,13 +422,31 @@
           "description": "Utilises quand la cible chiffree n'est pas calculable faute de baseline",
           "items": {
             "type": "object",
-            "required": ["libelle", "valeur_actuelle", "valeur_cible"],
+            "required": [
+              "libelle",
+              "valeur_actuelle",
+              "valeur_cible"
+            ],
             "additionalProperties": false,
             "properties": {
-              "libelle": { "type": "string" },
-              "valeur_actuelle": { "type": ["number", "string"] },
-              "valeur_cible": { "type": ["number", "string"] },
-              "echeance_mois": { "type": "integer" }
+              "libelle": {
+                "type": "string"
+              },
+              "valeur_actuelle": {
+                "type": [
+                  "number",
+                  "string"
+                ]
+              },
+              "valeur_cible": {
+                "type": [
+                  "number",
+                  "string"
+                ]
+              },
+              "echeance_mois": {
+                "type": "integer"
+              }
             }
           }
         },
@@ -175,12 +454,21 @@
           "type": "array",
           "items": {
             "type": "object",
-            "required": ["hypothese", "effet_si_fausse"],
+            "required": [
+              "hypothese",
+              "effet_si_fausse"
+            ],
             "additionalProperties": false,
             "properties": {
-              "hypothese": { "type": "string" },
-              "effet_si_fausse": { "type": "string" },
-              "plus_fragile": { "type": "boolean" }
+              "hypothese": {
+                "type": "string"
+              },
+              "effet_si_fausse": {
+                "type": "string"
+              },
+              "plus_fragile": {
+                "type": "boolean"
+              }
             }
           }
         }
@@ -192,53 +480,163 @@
       "items": {
         "type": "object",
         "required": [
-          "id", "libelle", "volet", "noeuds_couverts", "gain", "effort", "confiance",
-          "score", "horizon", "critere_acceptation", "axe_execution", "axe_cout"
+          "id",
+          "libelle",
+          "volet",
+          "noeuds_couverts",
+          "gain",
+          "effort",
+          "confiance",
+          "score",
+          "horizon",
+          "critere_acceptation",
+          "axe_execution",
+          "axe_cout"
         ],
         "additionalProperties": false,
         "properties": {
-          "id": { "type": "string" },
-          "libelle": { "type": "string" },
-          "volet": { "enum": ["ETAT", "STRATEGIE"] },
-          "noeuds_couverts": { "type": "array", "items": { "type": "integer", "minimum": 1, "maximum": 82 } },
-          "gain": { "type": "integer", "minimum": 1, "maximum": 5 },
-          "cran_gain_cite": { "type": "string" },
-          "effort": { "type": "integer", "minimum": 1, "maximum": 5 },
-          "cran_effort_cite": { "type": "string" },
-          "confiance": { "type": "integer", "minimum": 1, "maximum": 5 },
-          "cran_confiance_cite": { "type": "string" },
-          "score": { "type": "number", "description": "(gain x confiance) / effort" },
-          "horizon": { "enum": ["quick-win", "structurant", "fondation"] },
-          "delai_realisation_jours": { "type": "number" },
-          "delai_effet_mesurable_jours": { "type": "number" },
+          "id": {
+            "type": "string"
+          },
+          "libelle": {
+            "type": "string"
+          },
+          "volet": {
+            "enum": [
+              "ETAT",
+              "STRATEGIE"
+            ]
+          },
+          "noeuds_couverts": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 82
+            }
+          },
+          "gain": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5
+          },
+          "cran_gain_cite": {
+            "type": "string"
+          },
+          "effort": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5
+          },
+          "cran_effort_cite": {
+            "type": "string"
+          },
+          "confiance": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5
+          },
+          "cran_confiance_cite": {
+            "type": "string"
+          },
+          "score": {
+            "type": "number",
+            "description": "(gain x confiance) / effort"
+          },
+          "horizon": {
+            "enum": [
+              "quick-win",
+              "structurant",
+              "fondation"
+            ]
+          },
+          "delai_realisation_jours": {
+            "type": "number"
+          },
+          "delai_effet_mesurable_jours": {
+            "type": "number"
+          },
           "critere_acceptation": {
             "type": "string",
             "description": "Verifiable par un tiers, sans jugement. Une action sans critere verifiable ne figure pas au snapshot."
           },
-          "hypothese_structurante": { "type": "string" },
-          "axe_execution": { "enum": ["IA", "MANUEL"] },
-          "regime_automatisation": {
-            "enum": ["bout-en-bout", "ia-assistee-validation-humaine", "manuel-strict"]
+          "hypothese_structurante": {
+            "type": "string"
           },
-          "axe_cout": { "enum": ["GRATUIT", "PAYANT"] },
+          "axe_execution": {
+            "enum": [
+              "IA",
+              "MANUEL"
+            ]
+          },
+          "regime_automatisation": {
+            "enum": [
+              "bout-en-bout",
+              "ia-assistee-validation-humaine",
+              "manuel-strict"
+            ]
+          },
+          "axe_cout": {
+            "enum": [
+              "GRATUIT",
+              "PAYANT"
+            ]
+          },
           "cout": {
-            "type": ["object", "null"],
+            "type": [
+              "object",
+              "null"
+            ],
             "additionalProperties": false,
             "properties": {
-              "borne_basse_eur": { "type": "number" },
-              "borne_haute_eur": { "type": "number" },
-              "periodicite": { "enum": ["mensuel", "annuel", "one-shot"] }
+              "borne_basse_eur": {
+                "type": "number"
+              },
+              "borne_haute_eur": {
+                "type": "number"
+              },
+              "periodicite": {
+                "enum": [
+                  "mensuel",
+                  "annuel",
+                  "one-shot"
+                ]
+              }
             }
           },
-          "trimestre_cible": { "enum": ["T1", "T2", "T3", "T4", "backlog", "non-retenue"] },
-          "dependance_de": { "type": ["string", "null"] },
-          "remontee_par_dependance": { "type": "boolean" },
+          "trimestre_cible": {
+            "enum": [
+              "T1",
+              "T2",
+              "T3",
+              "T4",
+              "backlog",
+              "non-retenue"
+            ]
+          },
+          "dependance_de": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "remontee_par_dependance": {
+            "type": "boolean"
+          },
           "statut_execution": {
-            "enum": ["non-demarree", "en-cours", "faite", "abandonnee"],
+            "enum": [
+              "non-demarree",
+              "en-cours",
+              "faite",
+              "abandonnee"
+            ],
             "description": "Renseigne au run suivant. Une action 'faite' dont l'effet est mesure autorise la confiance 5 sur les actions comparables."
           },
           "effet_constate": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Renseigne au run suivant : ce que le diff montre reellement, ou 'aucun effet mesurable'"
           }
         }
@@ -249,21 +647,43 @@
       "description": "Noeud 82 — Machine SEO",
       "additionalProperties": false,
       "properties": {
-        "score": { "type": "integer", "minimum": 1, "maximum": 5 },
-        "justification": { "type": "string" }
+        "score": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "justification": {
+          "type": "string"
+        }
       }
     },
     "dette_instrumentation": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["noeud_id", "motif", "a_obtenir"],
+        "required": [
+          "noeud_id",
+          "motif",
+          "a_obtenir"
+        ],
         "additionalProperties": false,
         "properties": {
-          "noeud_id": { "type": "integer", "minimum": 1, "maximum": 82 },
-          "motif": { "type": "string" },
-          "a_obtenir": { "type": "string", "description": "Ce qu'il faut fournir pour lever la non-mesure" },
-          "date_premiere_constatation": { "type": "string", "format": "date" }
+          "noeud_id": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 82
+          },
+          "motif": {
+            "type": "string"
+          },
+          "a_obtenir": {
+            "type": "string",
+            "description": "Ce qu'il faut fournir pour lever la non-mesure"
+          },
+          "date_premiere_constatation": {
+            "type": "string",
+            "format": "date"
+          }
         }
       }
     }
@@ -271,32 +691,83 @@
   "$defs": {
     "source": {
       "type": "object",
-      "required": ["disponible"],
+      "required": [
+        "disponible"
+      ],
       "additionalProperties": false,
       "properties": {
-        "disponible": { "type": "boolean" },
-        "periode_debut": { "type": ["string", "null"], "format": "date" },
-        "periode_fin": { "type": ["string", "null"], "format": "date" },
-        "note": { "type": "string" }
+        "disponible": {
+          "type": "boolean"
+        },
+        "periode_debut": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "periode_fin": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "note": {
+          "type": "string"
+        }
       }
     },
     "metrique": {
       "type": "object",
-      "required": ["cle", "valeur", "preuve"],
+      "required": [
+        "cle",
+        "valeur",
+        "preuve"
+      ],
       "additionalProperties": false,
       "properties": {
-        "cle": { "type": "string" },
-        "valeur": { "type": ["number", "string", "boolean", "null"] },
-        "unite": { "type": "string" },
+        "cle": {
+          "type": "string"
+        },
+        "valeur": {
+          "type": [
+            "number",
+            "string",
+            "boolean",
+            "null"
+          ]
+        },
+        "unite": {
+          "type": "string"
+        },
         "preuve": {
-          "enum": ["T1", "T2", "T3", "T4"],
+          "enum": [
+            "T1",
+            "T2",
+            "T3",
+            "T4"
+          ],
           "description": "T1 observe · T2 declare (export, periode obligatoire) · T3 tiers (source et date) · T4 infere (fourchette et calcul)"
         },
-        "source": { "type": "string", "description": "Obligatoire pour T2 et T3 : nom de l'export ou URL + date de consultation" },
-        "borne_basse": { "type": "number", "description": "Obligatoire pour T4" },
-        "borne_haute": { "type": "number", "description": "Obligatoire pour T4" },
-        "calcul": { "type": "string", "description": "Obligatoire pour T4 : formule et valeurs d'entree" }
+        "source": {
+          "type": "string",
+          "description": "Obligatoire pour T2 et T3 : nom de l'export ou URL + date de consultation"
+        },
+        "borne_basse": {
+          "type": "number",
+          "description": "Obligatoire pour T4"
+        },
+        "borne_haute": {
+          "type": "number",
+          "description": "Obligatoire pour T4"
+        },
+        "calcul": {
+          "type": "string",
+          "description": "Obligatoire pour T4 : formule et valeurs d'entree"
+        }
       }
     }
-  }
+  },
+  "schema_version_note": "1.1.0 — ajout du bloc pages[] (inventaire par URL)"
 }

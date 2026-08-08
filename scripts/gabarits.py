@@ -111,6 +111,25 @@ def gitkeep(chemin: Path, c: Compteur, registre: dict, force: bool, base: Path) 
         ecrire(chemin / ".gitkeep", "", c, registre, force, base)
 
 
+def front_matter(chemin: Path) -> dict:
+    """Lecture du front-matter plat. Pas de dependance externe : le format est
+    volontairement simple, et le rester est un controle en soi."""
+    texte = chemin.read_text(encoding="utf-8")
+    if not texte.startswith("---\n"):
+        raise ValueError("pas de front-matter")
+    fin = texte.index("\n---\n", 3)
+    champs: dict[str, str] = {}
+    for ligne in texte[4:fin].split("\n"):
+        ligne = ligne.strip()
+        if not ligne or ligne.startswith("#"):
+            continue
+        if ":" not in ligne:
+            raise ValueError(f"ligne de front-matter illisible : {ligne!r}")
+        cle, val = ligne.split(":", 1)
+        champs[cle.strip()] = val.strip()
+    return champs
+
+
 # ---------------------------------------------------------------- fiches
 
 

@@ -20,7 +20,7 @@ import re
 import sys
 from pathlib import Path
 
-from gabarits import SOUS_DOSSIERS_DONNEES
+from gabarits import SOUS_DOSSIERS_DONNEES, front_matter
 from grille import GRILLE, NB_BRANCHES, NB_NOEUDS, RACINE, lire
 
 SEO = RACINE / "seo"
@@ -67,25 +67,6 @@ class Rapport:
             print("ECHECS : " + ", ".join(self.echecs))
             return 1
         return 0
-
-
-def front_matter(chemin: Path) -> dict:
-    """Lecture du front-matter plat. Pas de dependance externe : le format est
-    volontairement simple, et le rester est un controle en soi."""
-    texte = chemin.read_text(encoding="utf-8")
-    if not texte.startswith("---\n"):
-        raise ValueError("pas de front-matter")
-    fin = texte.index("\n---\n", 3)
-    champs: dict[str, str] = {}
-    for ligne in texte[4:fin].split("\n"):
-        ligne = ligne.strip()
-        if not ligne or ligne.startswith("#"):
-            continue
-        if ":" not in ligne:
-            raise ValueError(f"ligne de front-matter illisible : {ligne!r}")
-        cle, val = ligne.split(":", 1)
-        champs[cle.strip()] = val.strip()
-    return champs
 
 
 def controler_fiches(base: Path, noeuds: list[dict]) -> list[str]:

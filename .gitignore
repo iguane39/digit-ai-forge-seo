@@ -12,3 +12,9 @@ venv/
 Thumbs.db
 .DS_Store
 desktop.ini
+
+# Sidecars de tracabilite des oracles (D-07 : patron optionnel, local a la machine).
+# output/ est reserve aux livrables (D-01).
+*.oracles.json
+*.oracles-cache.json
+*.oracles-historique.jsonl

@@ -14,7 +14,9 @@ Grille de 82 nœuds, deux volets, preuves étiquetées, actions dispatchées par
 | **ÉTAT** | Où en est le SEO de ce site, mesuré ? | Technique, Indexation, Signaux + part état des transversales |
 | **STRATÉGIE** | Où peut-il aller en 12-24 mois, et dans quel ordre ? | Idée, Validation, Croissance + part cible des transversales |
 
-Sorties dans `./output/seo/` : rapport, actions CSV, roadmap, snapshot JSON, dette d'instrumentation, et diff si un snapshot antérieur existe.
+**L'étude appartient au projet audité.** Tout est produit dans son dossier `seo/` — matière première dans `seo/analyse/`, documents dans `seo/livrables/` : rapport, actions CSV, roadmap, snapshot JSON, dette d'instrumentation, et diff si un snapshot antérieur existe. Rien ne reste dans la forge.
+
+L'espace est créé par `forge-seo` (`python scripts/new_mission.py --projet <chemin> …`). S'il est absent, le signaler plutôt que d'improviser une arborescence.
 
 ## Garde-fous — non négociables
 
@@ -44,7 +46,7 @@ Ces sept règles priment sur toute demande de complétude du livrable. Un tablea
 
 ### R0 — Cadrage et déclaration d'entrée
 
-1. Récupère le cadrage. Si le projet contient un fichier de cadrage rempli, lis-le ; sinon présente `assets/cadrage.template.md` et demande les champs `obligatoire` manquants.
+1. Récupère le cadrage dans `seo/cadrage.md` du projet audité. S'il est absent ou incomplet, présente `assets/cadrage.template.md` et demande les champs `obligatoire` manquants. Relis aussi `seo/etat.json` : une étude interrompue s'y reprend là où elle s'était arrêtée.
 2. **Entrées obligatoires** — sans elles, ne démarre pas : URL du site · secteur et modèle d'acquisition · marché/langue/pays · 3 à 5 concurrents · audience du livrable · objectif business à 12 mois.
 3. **Entrées optionnelles** — pour chacune manquante, déclare l'impact précis (cf. `references/sources-donnees.md`). Ne substitue jamais une valeur par défaut en silence.
 4. **Annonce avant d'analyser** : périmètre retenu, plafond de fetches et de recherches, stratégie d'échantillonnage si > 200 URLs, et le **compte exact de nœuds basculant en non mesurable** faute d'export.
@@ -108,7 +110,7 @@ Croisement → `IA + gratuit` · `IA + payant` · `manuel + gratuit` · `manuel 
 
 ### R6 — Livraison
 
-Dans `./output/seo/` (créé si absent), `<domaine>` sans TLD, date `AAAA-MM-JJ` :
+Dans `seo/livrables/` **du projet audité**, `<domaine>` sans TLD, date `AAAA-MM-JJ` :
 
 | Fichier | Contenu |
 |---|---|

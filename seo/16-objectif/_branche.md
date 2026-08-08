@@ -17,5 +17,5 @@ nb_noeuds: 5
 | 81 | Autorité | CADRAGE | `RV` | `04-autorite/` |
 | 82 | Machine SEO | CADRAGE | `SD` | `05-machine-seo/` |
 
-> Referentiel canonique, en lecture seule. Le travail se fait dans
-> `missions/<client>/analyse/`.
+> Referentiel canonique de la forge, en lecture seule. Le travail se fait
+> dans le dossier `seo/analyse/` du projet audite.

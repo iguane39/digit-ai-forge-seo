@@ -18,5 +18,5 @@ nb_noeuds: 6
 | 25 | Contenu Programmatique | TRANSVERSAL | `SD` | `05-contenu-programmatique/` |
 | 26 | Contenu Pensé Pour Les LLM | TRANSVERSAL | `SD` | `06-contenu-pense-pour-les-llm/` |
 
-> Referentiel canonique, en lecture seule. Le travail se fait dans
-> `missions/<client>/analyse/`.
+> Referentiel canonique de la forge, en lecture seule. Le travail se fait
+> dans le dossier `seo/analyse/` du projet audite.

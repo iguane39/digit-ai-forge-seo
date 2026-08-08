@@ -17,5 +17,5 @@ nb_noeuds: 5
 | 71 | Tests SEO | TRANSVERSAL | `SD` | `04-tests-seo/` |
 | 72 | Boucles D'Amélioration | TRANSVERSAL | `SD` | `05-boucles-d-amelioration/` |
 
-> Referentiel canonique, en lecture seule. Le travail se fait dans
-> `missions/<client>/analyse/`.
+> Referentiel canonique de la forge, en lecture seule. Le travail se fait
+> dans le dossier `seo/analyse/` du projet audite.

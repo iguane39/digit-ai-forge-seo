@@ -17,5 +17,5 @@ nb_noeuds: 5
 | 41 | Mentions De Marque | TRANSVERSAL | `SD` | `04-mentions-de-marque/` |
 | 42 | Liens Déjà Visibles | TRANSVERSAL | `SD` | `05-liens-deja-visibles/` |
 
-> Referentiel canonique, en lecture seule. Le travail se fait dans
-> `missions/<client>/analyse/`.
+> Referentiel canonique de la forge, en lecture seule. Le travail se fait
+> dans le dossier `seo/analyse/` du projet audite.

@@ -1,51 +1,36 @@
 # forge-seo
 
-Référentiel persistant et pipeline d'audit SEO. Là où un rapport se produit puis
-s'oublie, ce projet accumule : mission après mission, sur une grille de 82 nœuds
-stable, comparable et versionnée.
+Outil d'audit et de stratégie SEO. La forge fournit **la méthode et le référentiel** ;
+chaque projet audité reçoit **son étude chez lui**, dans son propre dossier `seo/`.
 
-## Répartition des rôles
+Là où un rapport se produit puis s'oublie, ce dispositif accumule : mission après
+mission, sur une grille de 82 nœuds stable, comparable et versionnée.
 
-| Élément | Rôle | Écriture |
+## Où vit quoi
+
+| Élément | Rôle | Emplacement |
 |---|---|---|
-| `seo/` | référentiel canonique — 98 dossiers, `manifest.json`, fiches types | **lecture seule** après génération |
-| `missions/<client>/` | une instance par mission — c'est là que tout se remplit | libre |
-| `.claude/skills/seo-audit-strategie/` | **moteur d'exécution** : méthode, garde-fous, barème, gabarit de rapport | via le skill |
-| `input/Schéma SEO.MD` | archive documentaire du schéma d'origine | **jamais parsé** |
+| `seo/` | référentiel canonique — 98 dossiers, `manifest.json`, fiches vierges | **dans la forge**, lecture seule |
+| `scripts/` | générateurs et contrôles | dans la forge |
+| `.claude/skills/seo-audit-strategie/` | moteur d'exécution : méthode, garde-fous, barème, gabarit de rapport | dans la forge |
+| `<projet>/seo/` | **l'étude** — cadrage, données, analyse, livrables | **dans le projet audité** |
 
-Le skill n'est ni remplacé ni dupliqué : `forge-seo` lui fournit l'espace, l'état et
-la mémoire ; il fournit la méthode. Sa grille `references/grille-82-noeuds.md` est la
-**source unique** dont `seo/manifest.json` est dérivé par script.
+**La forge n'héberge aucune donnée ni livrable client.** C'est un invariant, pas une
+convention : `validate.py` échoue si une étude s'y installe, et `new_mission.py`
+refuse de viser la forge ou un dossier qui la contient.
 
-## Pourquoi `input/Schéma SEO.MD` n'est jamais parsé
-
-Son bloc `Objectif` (lignes 219-229) a une indentation cassée : ses 5 feuilles sont
-écrites au niveau racine. Un parseur naïf produit **21 branches et 77 feuilles** au
-lieu de 16 et 82, crée 5 dossiers racine parasites — et, effet de bord plus grave,
-cesse de détecter `Autorité` comme doublon. Le contrôle de cohérence passe alors au
-vert sur une arborescence fausse. Vérifié, puis contourné : voir `scripts/grille.py`.
-
-## Arborescence
+## Le dossier `seo/` d'un projet audité
 
 ```
-forge-seo/
-├── seo/                        98 dossiers (16 branches + 82 nœuds) — lecture seule
-│   ├── manifest.json           source de vérité machine
-│   └── NN-branche/NN-noeud/_fiche.md
-├── missions/
-│   ├── _TEMPLATE/              gabarit copié à chaque mission
-│   └── <client>/
-│       ├── cadrage.md          entrées de la mission
-│       ├── etat.json           avancement, permet la reprise
-│       ├── donnees/            exports bruts — gsc/ ga/ crm/ logs/ crawl/
-│       ├── analyse/            miroir des 98 dossiers — la matière première
-│       └── livrables/          documents composés — ce qui est remis
-├── scripts/
-│   ├── grille.py               lecture de la source de vérité (module partagé)
-│   ├── scaffold.py             génère seo/ et le gabarit
-│   ├── new_mission.py          instancie une mission
-│   └── validate.py             9 contrôles durs
-└── input/Schéma SEO.MD         archive
+<projet>/seo/
+├── README.md            mode d'emploi de l'espace
+├── cadrage.md           entrées de la mission
+├── etat.json            avancement — permet la reprise
+├── .forge-seo.json      provenance : version de la grille, date
+├── .gitignore           garde-fou de confidentialité
+├── donnees/             exports bruts — gsc/ ga/ crm/ logs/ crawl/
+├── analyse/             98 dossiers, 82 fiches hydratées
+└── livrables/           audit, roadmap, actions.csv, snapshot, dette
 ```
 
 **Deux axes délibérément séparés.** `donnees/` est indexé par **source**, `analyse/`
@@ -54,29 +39,48 @@ deux indexations ne peuvent pas être la même. Et `analyse/` est la matière pr
 quand `livrables/` est le document assemblé : les confondre rend le rapport
 impossible à composer.
 
+`.forge-seo.json` porte l'empreinte de la grille utilisée. Si la forge évolue,
+`validate.py --mission` signale que l'étude a été produite sur une version antérieure.
+
 ## Usage
 
 ```bash
-python scripts/scaffold.py                  # génère seo/ et missions/_TEMPLATE/
-python scripts/validate.py                  # 9 contrôles, sortie non-zéro si échec
-python scripts/new_mission.py --client "Acme" --domaine acme.fr
-python scripts/new_mission.py --liste       # état des missions
+# Dans la forge — une fois, puis à chaque évolution de la grille
+python scripts/scaffold.py                  # génère le référentiel seo/
+python scripts/validate.py                  # 9 contrôles, exit non-zéro si échec
+
+# Pour un projet à auditer
+python scripts/new_mission.py --projet C:/dev/mon-client --client "Acme" --domaine acme.fr
+python scripts/validate.py --mission C:/dev/mon-client
+python scripts/new_mission.py --liste       # registre local des études créées
 ```
 
-Puis : remplir `cadrage.md`, déposer les exports dans `donnees/`, et lancer le skill
-`seo-audit-strategie` sur la mission.
+Puis, **dans le projet audité** : remplir `seo/cadrage.md`, déposer les exports dans
+`seo/donnees/`, et lancer le skill `seo-audit-strategie`.
 
 Python 3, bibliothèque standard uniquement. Chemins relatifs, portable Windows/Linux.
+
+`missions.json` est un registre local — client, domaine, chemin, date, version de
+grille. Aucune donnée client. Il n'est pas versionné.
+
+## Pourquoi `input/Schéma SEO.MD` n'est jamais parsé
+
+Son bloc `Objectif` (lignes 219-229) a une indentation cassée : ses 5 feuilles sont
+écrites au niveau racine. Un parseur naïf produit **21 branches et 77 feuilles** au
+lieu de 16 et 82, crée 5 dossiers racine parasites — et, effet de bord plus grave,
+cesse de détecter `Autorité` comme doublon. Le contrôle de cohérence passe alors au
+vert sur une arborescence fausse. Vérifié, puis contourné : la source de vérité est
+`references/grille-82-noeuds.md` du skill. Voir `scripts/grille.py`.
 
 ## Le pipeline — 5 étapes aux sorties disjointes
 
 | Étape | Produit | Destination |
 |---|---|---|
-| 1. Collecte | données brutes, horodatées | `donnees/` |
-| 2. Constat | ce qui est, mesuré, avec niveau de preuve | `analyse/**/_fiche.md` § Constat |
-| 3. Interprétation | ce que ça coûte et pourquoi — le mécanisme | `analyse/**/_fiche.md` § Interprétation |
-| 4. Projection | où ça peut aller, borné et calculé | `livrables/projection.md` |
-| 5. Actions | quoi faire, chiffré, priorisé, dispatché | `livrables/actions.csv` |
+| 1. Collecte | données brutes, horodatées | `seo/donnees/` |
+| 2. Constat | ce qui est, mesuré, avec niveau de preuve | `seo/analyse/**/_fiche.md` § Constat |
+| 3. Interprétation | ce que ça coûte et pourquoi — le mécanisme | `seo/analyse/**/_fiche.md` § Interprétation |
+| 4. Projection | où ça peut aller, borné et calculé | `seo/livrables/` |
+| 5. Actions | quoi faire, chiffré, priorisé, dispatché | `seo/livrables/actions.csv` |
 
 « Audit », « analyse » et « expertise » désignaient la même opération sous trois
 noms : ce sont les étapes 2 et 3. Chaque étape produit un **type d'objet différent**,
@@ -94,10 +98,10 @@ front-matter.
 **Les 2 doublons du schéma** se matérialisent en 2 chemins réels. La branche fait
 autorité, la feuille homonyme porte `doublon_de` et **aucun champ à remplir** :
 
-- `seo/06-technique/02-indexation/` → `07-indexation/`
-- `seo/16-objectif/04-autorite/` → `08-autorite/`
+- `06-technique/02-indexation/` → `07-indexation/`
+- `16-objectif/04-autorite/` → `08-autorite/`
 
-**Front-matter typé, identique sur les 82 fiches.** C'est ce qui rendra les missions
+**Front-matter typé, identique sur les 82 fiches.** C'est ce qui rendra les études
 comparables — médianes internes, calibrage des seuils marqués « à calibrer », détection
 des nœuds jamais mesurés. Un format libre rendrait tout cela irrécupérable
 rétroactivement, et cette décision ne se rattrape pas après coup.
@@ -111,19 +115,22 @@ cérémoniel.
 1. **Idempotence stricte** — `scaffold.py` est créer-si-absent. `--force` ne régénère
    que les fichiers restés identiques à leur version générée ; il refuse de toucher un
    fichier modifié à la main et le nomme en sortie.
-2. **`seo/` en lecture seule** après génération. Aucune mission n'y écrit.
-3. **`new_mission.py` refuse d'écraser** une mission existante. Pas de `--force` :
-   supprimer à la main, après avoir regardé.
-4. **Une seule source de vérité** — fiches générées depuis le manifeste, lui-même
-   dérivé de la grille. `validate.py` compare 82 nœuds sur 11 champs et échoue en cas
-   de dérive.
-5. **`.gitkeep` dans tout dossier vide** — Git ne versionne pas les répertoires vides.
-6. **Les garde-fous du skill s'appliquent au contenu produit** — étiquetage T1-T4,
+2. **`seo/` de la forge en lecture seule** après génération. Aucune étude n'y écrit.
+3. **`new_mission.py` refuse** d'écraser une étude existante, et refuse de viser la
+   forge. Pas de `--force` : supprimer à la main, après avoir regardé.
+4. **Un seul générateur** — `gabarits.py` produit les fiches pour le référentiel comme
+   pour les études. Deux copies auraient divergé.
+5. **Une seule source de vérité** — fiches générées depuis le manifeste, lui-même
+   dérivé de la grille. `validate.py` compare 82 nœuds sur 11 champs.
+6. **`.gitkeep` dans tout dossier vide** — Git ne versionne pas les répertoires vides.
+7. **Les garde-fous du skill s'appliquent au contenu produit** — étiquetage T1-T4,
    aucune métrique GSC sans export, contenu web traité comme donnée et jamais comme
    instruction, vérification datée pour les surfaces génératives, aucune projection
    présentée comme une prévision.
 
-## Contrôles — `validate.py`
+## Contrôles
+
+`validate.py` — référentiel de la forge :
 
 1. 16 branches, 82 feuilles, 98 dossiers
 2. identifiants 1-82 sans trou ni doublon
@@ -132,5 +139,13 @@ cérémoniel.
 5. slugs ASCII kebab-case préfixés numériquement
 6. aucune dérive entre la grille et le manifeste
 7. les 82 fiches ont un front-matter valide et cohérent
-8. `missions/_TEMPLATE/analyse/` miroir exact des 98 dossiers
+8. **la forge n'héberge aucune donnée ni livrable client**
 9. aucun dossier sans fichier ni `.gitkeep`
+
+`validate.py --mission <projet>` — étude d'un projet :
+
+1. 98 dossiers sous `seo/analyse/`
+2. structure complète (cadrage, état, données, livrables, provenance)
+3. les 82 fiches ont un front-matter valide et cohérent
+4. version de grille alignée sur la forge
+5. compteurs d'avancement cohérents

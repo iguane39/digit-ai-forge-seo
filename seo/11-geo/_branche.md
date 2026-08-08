@@ -17,5 +17,5 @@ nb_noeuds: 5
 | 56 | Contenu Utile | TRANSVERSAL | `SD` | `04-contenu-utile/` |
 | 57 | Présence Dans Les Réponses IA | TRANSVERSAL | `SD` | `05-presence-dans-les-reponses-ia/` |
 
-> Referentiel canonique, en lecture seule. Le travail se fait dans
-> `missions/<client>/analyse/`.
+> Referentiel canonique de la forge, en lecture seule. Le travail se fait
+> dans le dossier `seo/analyse/` du projet audite.

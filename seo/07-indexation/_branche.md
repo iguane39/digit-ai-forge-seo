@@ -17,5 +17,5 @@ nb_noeuds: 5
 | 36 | Pages Profondes | ETAT | `EX` | `04-pages-profondes/` |
 | 37 | Indexation De Masse | ETAT | `EX` | `05-indexation-de-masse/` |
 
-> Referentiel canonique, en lecture seule. Le travail se fait dans
-> `missions/<client>/analyse/`.
+> Referentiel canonique de la forge, en lecture seule. Le travail se fait
+> dans le dossier `seo/analyse/` du projet audite.

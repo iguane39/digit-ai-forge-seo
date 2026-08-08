@@ -17,5 +17,5 @@ nb_noeuds: 5
 | 46 | Comportement Post Clic | ETAT | `EX` | `04-comportement-post-clic/` |
 | 47 | Retours Utilisateurs | ETAT | `SD` | `05-retours-utilisateurs/` |
 
-> Referentiel canonique, en lecture seule. Le travail se fait dans
-> `missions/<client>/analyse/`.
+> Referentiel canonique de la forge, en lecture seule. Le travail se fait
+> dans le dossier `seo/analyse/` du projet audite.

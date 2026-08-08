@@ -17,5 +17,5 @@ nb_noeuds: 5
 | 66 | Leads | TRANSVERSAL | `NM` | `04-leads/` |
 | 67 | Revenu Par Page | TRANSVERSAL | `NM` | `05-revenu-par-page/` |
 
-> Referentiel canonique, en lecture seule. Le travail se fait dans
-> `missions/<client>/analyse/`.
+> Referentiel canonique de la forge, en lecture seule. Le travail se fait
+> dans le dossier `seo/analyse/` du projet audite.

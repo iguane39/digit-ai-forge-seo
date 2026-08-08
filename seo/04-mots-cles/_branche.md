@@ -17,5 +17,5 @@ nb_noeuds: 5
 | 19 | Requêtes Sous Exploitées | TRANSVERSAL | `EX` | `04-requetes-sous-exploitees/` |
 | 20 | SERP Faibles | TRANSVERSAL | `SD` | `05-serp-faibles/` |
 
-> Referentiel canonique, en lecture seule. Le travail se fait dans
-> `missions/<client>/analyse/`.
+> Referentiel canonique de la forge, en lecture seule. Le travail se fait
+> dans le dossier `seo/analyse/` du projet audite.

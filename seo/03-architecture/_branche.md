@@ -17,5 +17,5 @@ nb_noeuds: 5
 | 14 | Maillage Interne | TRANSVERSAL | `SD` | `04-maillage-interne/` |
 | 15 | Profondeur De Clic | TRANSVERSAL | `SD` | `05-profondeur-de-clic/` |
 
-> Referentiel canonique, en lecture seule. Le travail se fait dans
-> `missions/<client>/analyse/`.
+> Referentiel canonique de la forge, en lecture seule. Le travail se fait
+> dans le dossier `seo/analyse/` du projet audite.

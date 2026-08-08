@@ -1,10 +1,6 @@
-# Missions clients — données d'audit, exports GSC/GA/CRM, livrables.
-# Le gabarit est versionné, les instances ne le sont pas : une mission contient
-# des données client (exports, chiffres d'affaires, leads) qui n'ont rien à faire
-# dans un dépôt partagé. Pour versionner une mission précise, la forcer :
-#   git add -f missions/<client>/
-missions/*
-!missions/_TEMPLATE/
+# Registre local des études créées depuis cette forge : chemins de projets
+# clients sur cette machine. Pas de donnée client, mais rien à partager non plus.
+missions.json
 
 # Python
 __pycache__/

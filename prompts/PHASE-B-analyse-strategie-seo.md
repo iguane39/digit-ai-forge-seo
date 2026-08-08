@@ -111,7 +111,7 @@ Précise le régime par action : `automatisable de bout en bout` · `IA assisté
 
 ## B5. Livrables
 
-Dans `./output/seo/` (créé si absent), `<domaine>` sans le TLD, date au format `AAAA-MM-JJ` :
+Dans `seo/livrables/` **du projet audité** — jamais dans la forge. `<domaine>` sans le TLD, date au format `AAAA-MM-JJ` :
 
 | Fichier | Contenu |
 |---|---|

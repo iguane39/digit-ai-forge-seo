@@ -17,5 +17,5 @@ nb_noeuds: 5
 | 4 | Concurrence SERP | STRATEGIE | `SD` | `04-concurrence-serp/` |
 | 5 | Opportunité Cachée | STRATEGIE | `EX` | `05-opportunite-cachee/` |
 
-> Referentiel canonique, en lecture seule. Le travail se fait dans
-> `missions/<client>/analyse/`.
+> Referentiel canonique de la forge, en lecture seule. Le travail se fait
+> dans le dossier `seo/analyse/` du projet audite.

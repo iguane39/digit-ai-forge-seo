@@ -18,5 +18,5 @@ nb_noeuds: 6
 | 31 | Performance | ETAT | `SD` | `05-performance/` |
 | 32 | Schema | ETAT | `SD` | `06-schema/` |
 
-> Referentiel canonique, en lecture seule. Le travail se fait dans
-> `missions/<client>/analyse/`.
+> Referentiel canonique de la forge, en lecture seule. Le travail se fait
+> dans le dossier `seo/analyse/` du projet audite.

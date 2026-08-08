@@ -17,5 +17,5 @@ nb_noeuds: 5
 | 9 | Difficulté SEO | STRATEGIE | `PY` | `04-difficulte-seo/` |
 | 10 | Vitesse De Monétisation | STRATEGIE | `NM` | `05-vitesse-de-monetisation/` |
 
-> Referentiel canonique, en lecture seule. Le travail se fait dans
-> `missions/<client>/analyse/`.
+> Referentiel canonique de la forge, en lecture seule. Le travail se fait
+> dans le dossier `seo/analyse/` du projet audite.

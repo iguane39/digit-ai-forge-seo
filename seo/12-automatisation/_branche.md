@@ -17,5 +17,5 @@ nb_noeuds: 5
 | 61 | Génération De Pages | TRANSVERSAL | `SD` | `04-generation-de-pages/` |
 | 62 | Détection Opportunités | TRANSVERSAL | `SD` | `05-detection-opportunites/` |
 
-> Referentiel canonique, en lecture seule. Le travail se fait dans
-> `missions/<client>/analyse/`.
+> Referentiel canonique de la forge, en lecture seule. Le travail se fait
+> dans le dossier `seo/analyse/` du projet audite.

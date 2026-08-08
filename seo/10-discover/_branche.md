@@ -17,5 +17,5 @@ nb_noeuds: 5
 | 51 | Signaux Externes | TRANSVERSAL | `SD` | `04-signaux-externes/` |
 | 52 | Pics De Trafic | TRANSVERSAL | `EX` | `05-pics-de-trafic/` |
 
-> Referentiel canonique, en lecture seule. Le travail se fait dans
-> `missions/<client>/analyse/`.
+> Referentiel canonique de la forge, en lecture seule. Le travail se fait
+> dans le dossier `seo/analyse/` du projet audite.

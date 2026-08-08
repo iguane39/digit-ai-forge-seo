@@ -17,5 +17,5 @@ nb_noeuds: 5
 | 76 | Partenariats | STRATEGIE | `SD` | `04-partenariats/` |
 | 77 | Actifs Qui Composent | STRATEGIE | `SD` | `05-actifs-qui-composent/` |
 
-> Referentiel canonique, en lecture seule. Le travail se fait dans
-> `missions/<client>/analyse/`.
+> Referentiel canonique de la forge, en lecture seule. Le travail se fait
+> dans le dossier `seo/analyse/` du projet audite.

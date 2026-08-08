@@ -127,12 +127,37 @@ def collecter(projet: Path) -> dict:
         with csvs[-1].open(encoding="utf-8-sig", newline="") as f:
             actions = list(csv.DictReader(f))
 
+    # Chainage des runs : on filtre sur le domaine de l'etude et on trie sur la date
+    # extraite du nom, pas sur l'ordre lexicographique du glob. Deux domaines dans un
+    # meme projet, ou un nom de fichier inhabituel, suffiraient sinon a comparer deux
+    # runs sans rapport -- et le diff est ce que le client achete au second audit.
+    domaine = etat.get("domaine") or ""
+    snaps = []
+    if livrables.is_dir():
+        motif = re.compile(
+            rf"^snapshot-{re.escape(domaine)}-(\d{{8}})\.json$" if domaine
+            else r"^snapshot-.*-(\d{8})\.json$"
+        )
+        snaps = sorted(
+            (p for p in livrables.glob("snapshot-*.json") if motif.match(p.name)),
+            key=lambda p: motif.match(p.name).group(1),
+        )
+
     snapshot, snap_precedent = {}, None
-    snaps = sorted(livrables.glob("snapshot-*.json")) if livrables.is_dir() else []
     if snaps:
         snapshot = json.loads(snaps[-1].read_text(encoding="utf-8"))
         if len(snaps) > 1:
             snap_precedent = json.loads(snaps[-2].read_text(encoding="utf-8"))
+
+    # etat.json porte le chainage : sans mise a jour il reste a null indefiniment et
+    # ment sur l'historique reel. Ce script est le seul a connaitre le contenu de
+    # livrables/ -- c'est donc lui qui le tient a jour.
+    attendu = snaps[-2].name if len(snaps) > 1 else None
+    if etat.get("snapshot_precedent") != attendu:
+        etat["snapshot_precedent"] = attendu
+        (base / "etat.json").write_text(
+            json.dumps(etat, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+        )
 
     cadrage = ""
     if (base / "cadrage.md").exists():

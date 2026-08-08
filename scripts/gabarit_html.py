@@ -18,7 +18,24 @@ import html as _html
 from pathlib import Path
 
 RACINE = Path(__file__).resolve().parent.parent
+
+# Le composant de filtres est installe dans digit-ai-page-html (decision D-12).
+# On lit l'asset du skill en priorite ; la copie vendoree reste le repli pour une
+# machine ou le skill n'est pas deploye. Le HTML produit est identique dans les
+# deux cas -- meme code, meme contrat de marquage.
+SKILL_ASSET = (
+    Path.home() / ".claude" / "skills" / "digit-ai-page-html" / "assets" / "table-filters.js"
+)
 VENDOR = RACINE / "assets" / "vendor" / "table-filters.js"
+
+
+def source_filtres() -> tuple[str, str]:
+    """Retourne (code, origine). Origine tracee dans le rapport de generation."""
+    if SKILL_ASSET.exists():
+        return SKILL_ASSET.read_text(encoding="utf-8"), "digit-ai-page-html"
+    if VENDOR.exists():
+        return VENDOR.read_text(encoding="utf-8"), "copie vendoree"
+    return "", "absent"
 
 # --------------------------------------------------------- niveaux de preuve
 
@@ -404,7 +421,7 @@ footer.doc{margin-top:24px;padding-top:14px;border-top:1px solid var(--line);
 
 def page(titre: str, blocs: list[str], pied: str) -> str:
     """Squelette complet. Un seul <h1>, lang fr, viewport, tout inline."""
-    js = VENDOR.read_text(encoding="utf-8") if VENDOR.exists() else ""
+    js, _origine = source_filtres()
     # initAll() est l'API prevue par le composant, et la seule forme que son oracle
     # reconnait (regle G3). Une boucle querySelectorAll fonctionne au navigateur mais
     # n'est pas analysable statiquement : elle ne prouve rien.

@@ -112,13 +112,33 @@ def collecter(projet: Path) -> dict:
     if (base / ".forge-seo.json").exists():
         prov = json.loads((base / ".forge-seo.json").read_text(encoding="utf-8"))
 
-    noeuds = []
+    noeuds, absents = [], []
     for n in manifeste["noeuds"]:
         fiche = base / "analyse" / n["chemin"] / "_fiche.md"
         if not fiche.exists():
+            absents.append(n["chemin"])
             continue
         fm = front_matter(fiche)
         noeuds.append({**n, **fm, **corps_fiche(fiche)})
+
+    # REFUS si l'etude ne couvre pas toute la grille courante. Sans ce controle, une
+    # etude ouverte avant une evolution de la grille rend un rapport silencieusement
+    # ampute -- "Couverture des 82 noeuds" la ou le referentiel en compte 87 --, et le
+    # client recoit un document qui pretend etre complet. Le rapport affichait la
+    # version de grille sans jamais la comparer : afficher n'est pas verifier.
+    if absents:
+        v_etude = prov.get("version_grille", "inconnue")
+        raise SystemExit(
+            f"REFUS : {len(absents)} nœud(s) de la grille n'ont pas de fiche dans cette "
+            f"étude ({len(noeuds)}/{NB_NOEUDS} trouvés).\n"
+            f"L'étude a été créée sur la grille {v_etude} ; le référentiel a évolué "
+            f"depuis.\n"
+            f"Premiers manquants : {', '.join(absents[:3])}"
+            + (f" … (+{len(absents) - 3})" if len(absents) > 3 else "")
+            + "\n\nUn rapport partiel qui se présente comme complet est pire qu'aucun "
+            "rapport.\nDiagnostic : python <forge>/scripts/validate.py --mission "
+            f'"{projet}"'
+        )
 
     livrables = base / "livrables"
     actions = []
